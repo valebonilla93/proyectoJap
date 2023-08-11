@@ -8,3 +8,4 @@ checkbox.addEventListener('click', () => {
         password.setAttribute("type", "password");
     }
 });
+   
