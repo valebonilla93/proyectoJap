@@ -188,3 +188,42 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+#contenedor {
+  text-align: center;
+  justify-content: center;
+}
+
+#forgotPass {
+  color: gray;
+}
+
+input[type="text"],
+input[type="password"] {
+  border: #fff;
+  padding: 10px;
+  display: block;
+  width: 15%;
+}
+
+input[type="submit"] {
+  background-color: rgb(80, 80, 255);
+  color: #fff;
+  border-radius: 5px;
+  border: rgb(99, 99, 231);
+  display: block;
+  width: 15%;
+  height: 45px;
+}
+
+img {
+  width: 500px;
+}
+
+.cont {
+  display: flex;
+  align-items: center;
+  margin-left: 800px;
+  justify-content: space-between;
+}
+
