@@ -223,7 +223,7 @@ img {
 .cont {
   display: flex;
   align-items: center;
-  margin-left: 800px;
+  margin-left: 500px;
   justify-content: space-between;
 }
 
