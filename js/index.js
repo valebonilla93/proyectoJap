@@ -12,3 +12,12 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location = "products.html"
     });
 });
+
+const email= sessionStorage.getItem('email');
+const password= sessionStorage.getItem('password');
+window.onload = function() {
+    if(email === null && password===null)
+      window.location.href = "login.html";
+    console.log(email, password);
+  }
+ 
