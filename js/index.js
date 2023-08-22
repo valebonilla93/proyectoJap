@@ -13,11 +13,12 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 });
 
-const email= sessionStorage.getItem('email');
-const password= sessionStorage.getItem('password');
+const email = localStorage.getItem('email');
+const password = localStorage.getItem('password');
+ 
 window.onload = function() {
-    if(email === null && password===null)
-      window.location.href = "login.html";
+    if (email === null || password === null) 
+        window.location.href = "login.html";
     console.log(email, password);
-  }
+};
  

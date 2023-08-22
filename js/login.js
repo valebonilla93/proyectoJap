@@ -13,13 +13,12 @@ checkbox.addEventListener('click', () => {
 });
 
 button.addEventListener('click', () => {
-    
-     const data = {
+    const data = {
         email: email.value,
         password: password.value
     };
-    sessionStorage.setItem('email', email);
-    sessionStorage.setItem('password', password);
+    localStorage.setItem('email', email.value);
+    localStorage.setItem('password', password.value); 
     console.log(data);
 });
 
