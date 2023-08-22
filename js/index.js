@@ -17,8 +17,11 @@ const email = localStorage.getItem('email');
 const password = localStorage.getItem('password');
  
 window.onload = function() {
-    if (email === null || password === null) 
+    if (email === null || password === null) {
         window.location.href = "login.html";
+ } else {
+    document.getElementById('email').textContent = email;
+ } 
     console.log(email, password);
-};
+}
  
