@@ -4,8 +4,13 @@ const container = document.getElementById("container");
 const mayorAMenor = document.getElementById("sortAsc");
 const menorAMayor = document.getElementById("sortDesc");
 const rel = document.getElementById("sortByCount");
+const precioMin = document.getElementById("rangeFilterCountMin");
+const precioMax = document.getElementById("rangeFilterCountMax");
+const botonFiltrar = document.getElementById("rangeFilterCount");
+const botonLimpiar = document.getElementById("clearRangeFilter");
 let dataArray = [];
 let categoryName;
+let filtrados = [];
 
 function showData(dataArray, categoryName) {
   container.innerHTML = '';
@@ -56,6 +61,18 @@ rel.addEventListener("click", () => {
   showData(dataArray, categoryName); 
 });
 
+botonFiltrar.addEventListener("click", () => {
+    filtrados = dataArray.filter(item => item.cost >= precioMin.value && item.cost <= precioMax.value);
+    showData(filtrados, categoryName);
+})
+
+botonLimpiar.addEventListener("click", () => {
+  filtrados = [];
+  precioMin.value = "";
+  precioMax.value = "";
+  showData(dataArray, categoryName);
+})
+
 
 fetch(DATA_URL)
   .then((response) => response.json())
@@ -65,4 +82,5 @@ fetch(DATA_URL)
       showData(dataArray, data.catName);
   });
 
+ 
  
