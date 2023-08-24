@@ -8,6 +8,8 @@ const precioMin = document.getElementById("rangeFilterCountMin");
 const precioMax = document.getElementById("rangeFilterCountMax");
 const botonFiltrar = document.getElementById("rangeFilterCount");
 const botonLimpiar = document.getElementById("clearRangeFilter");
+const botonBuscar = document.getElementById("btnsearch");
+const buscador = document.getElementById("search");
 let dataArray = [];
 let categoryName;
 let filtrados = [];
@@ -73,6 +75,16 @@ botonLimpiar.addEventListener("click", () => {
   showData(dataArray, categoryName);
 })
 
+buscador.addEventListener('input', () => {
+  const valorBuscador = buscador.value.toLowerCase();
+  const arrayBuscador = dataArray.filter(item => {
+    const nombre = item.name.toLowerCase();
+    const descripcion = item.description.toLowerCase();
+    return nombre.includes(valorBuscador) || descripcion.includes(valorBuscador);
+
+  })
+  showData(arrayBuscador, categoryName);
+} )
 
 fetch(DATA_URL)
   .then((response) => response.json())
