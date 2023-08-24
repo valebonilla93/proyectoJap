@@ -16,6 +16,12 @@ let filtrados = [];
 
 function showData(dataArray, categoryName) {
   container.innerHTML = '';
+  if (dataArray.length === 0){
+    const resultado = document.createElement("p");
+    resultado.innerHTML = 'No se han encontrado resultados para tu búsqueda. Asegúrate de que todas las palabras estén escritas correctamente.';
+    container.appendChild(resultado);
+    return;
+  }
   const titulo = document.createElement("h1");
   titulo.textContent = "Productos";
   const subtitulo = document.createElement("h3");
