@@ -8,7 +8,6 @@ const precioMin = document.getElementById("rangeFilterCountMin");
 const precioMax = document.getElementById("rangeFilterCountMax");
 const botonFiltrar = document.getElementById("rangeFilterCount");
 const botonLimpiar = document.getElementById("clearRangeFilter");
-const botonBuscar = document.getElementById("btnsearch");
 const buscador = document.getElementById("search");
 let dataArray = [];
 let categoryName;
