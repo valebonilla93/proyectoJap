@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 });
 
+// Cambio de session a local y se agregó la información guardada en la constante email a la barra de navegación.
 const email = localStorage.getItem('email');
 const password = localStorage.getItem('password');
  
