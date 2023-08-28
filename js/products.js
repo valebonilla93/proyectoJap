@@ -16,7 +16,7 @@ let filtrados = [];
 // Función que agrega al html el contenido a mostrar traido desde el JSON
 function showData(dataArray, categoryName) {
   container.innerHTML = '';
-  // En el caso de no encontrar resultados en la b[usqueda se mostrará este mensaje.
+  // En el caso de no encontrar resultados en la búsqueda se mostrará este mensaje.
   if (dataArray.length === 0){
     const resultado = document.createElement("p");
     resultado.innerHTML = 'No se han encontrado resultados para tu búsqueda. Asegúrate de que todas las palabras estén escritas correctamente.';
