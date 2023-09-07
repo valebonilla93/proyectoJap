@@ -30,12 +30,16 @@ function showDataInfo(dataArray) {
     container.appendChild(sold);
 
     const imgContainer = document.createElement('div');
-    imgContainer.innerHTML = `imagenes ilustrativas <br>`;
+    imgContainer.classList.add('d-flex');
+    imgContainer.innerHTML = `Imágenes ilustrativas <br>`;
     container.appendChild(imgContainer);
 
     for (const image of dataArray.images) {
         const img = document.createElement('img');
         img.setAttribute('src', image);
+        img.style.width = '20%';
+    img.style.height = 'auto';
+        img.classList.add('d-inline-block', 'mx-2');
         imgContainer.appendChild(img);
     }
 
