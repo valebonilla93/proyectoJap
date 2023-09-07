@@ -6,6 +6,7 @@ const containerComent = document.getElementById('containerComentarios');
 let dataArray = [];
 let dataArrayComent = [];
 
+//Función que ordena la información traída de product info.
 function showDataInfo(dataArray) {
     container.innerHTML = "";
 
@@ -34,11 +35,12 @@ function showDataInfo(dataArray) {
     imgContainer.innerHTML = `Imágenes ilustrativas <br>`;
     container.appendChild(imgContainer);
 
+    // Como hay varias imágenes en el json utilizamos un for para traerlas a todas.
     for (const image of dataArray.images) {
         const img = document.createElement('img');
         img.setAttribute('src', image);
         img.style.width = '20%';
-    img.style.height = 'auto';
+        img.style.height = 'auto';
         img.classList.add('d-inline-block', 'mx-2');
         imgContainer.appendChild(img);
     }
@@ -46,6 +48,8 @@ function showDataInfo(dataArray) {
     container.appendChild(imgContainer);
 
 }
+
+//Función que trae los comentarios de product info comments.
 function showDataComent(dataArrayComent) {
     containerComent.innerHTML = "";
     const title = document.createElement('h3');
@@ -67,6 +71,8 @@ function showDataComent(dataArrayComent) {
     table.appendChild(tbody);
     containerComent.appendChild(table);
 }
+
+// Fetch al json con la información de los productos.
 fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -77,7 +83,9 @@ fetch(url)
         console.error('Fetch error:', error);
     });;
 
-    fetch(urlComent)
+    // Fetch al json con los comentarios de los productos.
+
+fetch(urlComent)
     .then((response) => response.json())
     .then((dataDos) => {
         dataArrayComent = dataDos;
