@@ -125,7 +125,7 @@ commentBtn.addEventListener("click", function () {
     dataArrayCommentUser.push(newComment);
 
     // Guardar el arreglo actualizado en el Local Storage.
-    localStorage.setItem("comentarios", JSON.stringify(dataArrayComment));
+    localStorage.addItem("comentarios", JSON.stringify(dataArrayComment));
 
     // Llamar a la función showDataComent para mostrar los comentarios actualizados en la página.
     showDataComment(dataArrayCommentUser);
@@ -139,7 +139,7 @@ fetch(urlComment)
     .then((response) => response.json())
     .then((dataDos) => {
         dataArrayCommentApi = dataDos;
-        dataArrayComment = dataArrayCommentApi.concat(dataArrayUser);
+        dataArrayComment = dataArrayCommentApi.concat(dataArrayComentUser);
         showDataComment(dataArrayComment);
         localStorage.setItem("comentarios", JSON.stringify(dataArrayComment));
     })
