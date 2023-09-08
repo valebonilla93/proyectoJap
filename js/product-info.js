@@ -110,6 +110,7 @@ fetch(url)
 fetch(urlComment)
     .then((response) => response.json())
     .then((dataDos) => {
+        dataArrayComment = [];
         dataArrayComment = dataArrayComment.concat(dataDos);
         showDataComment(dataArrayComment);
         localStorage.setItem("comentarios", JSON.stringify(dataArrayComment));
