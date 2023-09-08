@@ -55,13 +55,14 @@ function showDataComment(dataArrayComment) {
     title.textContent = 'Comentarios';
     containerComment.appendChild(title);
     
+    //Ordena los comentarios mostrando primero los últimos realizados.
     dataArrayComment.sort((a,b)=> {
 const dateA = new Date (a.dateTime);
 const dateB = new Date (b.dateTime);
 return dateB - dateA;
 });
 
-
+//Se muestra el score en formato de estrellas.
     for (const item of dataArrayComment) {
         const row = document.createElement('tr');
         const starRating = '&#9733;'.repeat(Math.round(item.score));
@@ -79,6 +80,8 @@ return dateB - dateA;
     table.appendChild(tbody);
     containerComment.appendChild(table);
 }
+
+// Muestra el email del usuario en la barra de navegación.
  window.onload = function() {
     showEmailInNavbar()
     }
@@ -93,6 +96,7 @@ fetch(url)
         console.error('Fetch error:', error);
     });;
 
+    // Se obtiene los comentarios almacenados en el localStorage y los agrega a traves de la función ShowDataComment al dataArrayComment
     const commentSave = localStorage.getItem("comentarios");
     if (commentSave){
         dataArrayComment = JSON.parse(commentSave);
