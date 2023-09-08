@@ -1,0 +1,54 @@
+body {
+    font-family: Arial, Helvetica, sans-serif
+}
+
+h1 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+fieldset {
+    padding: 2%;
+}
+
+.img {
+    width: 23%;
+    margin: 1%;
+}
+
+.form-control {
+    padding: 1%;
+    margin: 0.2%;
+}
+
+.btn {
+    margin-top: 1%;
+    background-color: hsl(240, 100%, 66%);
+    color: rgb(255, 255, 255);
+}
+
+.comment-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.comment-table th,
+.comment-table td {
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 7px;
+}
+
+.comment-table p {
+    margin: 4px;
+}
+
+#container p {
+    margin-bottom: 15px;
+}
