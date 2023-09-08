@@ -1,14 +1,10 @@
 const selectedProductId = localStorage.getItem("selectedProductId");
 const url = PRODUCT_INFO_URL + selectedProductId + EXT_TYPE;
 const container = document.getElementById('container');
-const urlComment = PRODUCT_INFO_COMMENTS_URL + selectedProductId + EXT_TYPE;
-const containerComment = document.getElementById('containerComentarios');
-const commentBtn = document.getElementById("comentBtn");
-const commentInput = document.getElementById("comentario");
-const email = document.getElementById("email");
+const urlComent = PRODUCT_INFO_COMMENTS_URL + selectedProductId + EXT_TYPE;
+const containerComent = document.getElementById('containerComentarios');
 let dataArray = [];
-let dataArrayComment = [];
-
+let dataArrayComent = [];
 
 function showDataInfo(dataArray) {
     container.innerHTML = "";
@@ -34,27 +30,37 @@ function showDataInfo(dataArray) {
     container.appendChild(sold);
 
     const imgContainer = document.createElement('div');
-    imgContainer.innerHTML = `imagenes ilustrativas <br>`;
+    imgContainer.classList.add('d-flex');
+    imgContainer.innerHTML = `Imágenes ilustrativas <br>`;
     container.appendChild(imgContainer);
 
     for (const image of dataArray.images) {
         const img = document.createElement('img');
         img.setAttribute('src', image);
+        img.style.width = '20%';
+    img.style.height = 'auto';
+        img.classList.add('d-inline-block', 'mx-2');
         imgContainer.appendChild(img);
     }
 
     container.appendChild(imgContainer);
 
 }
-function showDataComment(dataArrayComment) {
-    containerComment.innerHTML = "";
+
+function showDataComent(dataArrayComent) {
+    containerComent.innerHTML = "";
     const title = document.createElement('h3');
     const table = document.createElement("table");
     const tbody = document.createElement("tbody");
     title.textContent = "Comentarios";
-    containerComment.appendChild(title);
-    for (const item of dataArrayComment) {
+    containerComent.appendChild(title);
+    for (const item of dataArrayComent) {
         const row = document.createElement("tr");
+        const stars = document.createElement("td");
+        for (let i = 1; i <= 5; i++){
+            const star = document.createElement("span");
+            star.classList
+        }
         row.innerHTML = `
             <td>
         <p>${item.user} - ${item.dateTime} - ${item.score} </p>
@@ -65,8 +71,9 @@ function showDataComment(dataArrayComment) {
     }
 
     table.appendChild(tbody);
-    containerComment.appendChild(table);
+    containerComent.appendChild(table);
 }
+
 fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -77,40 +84,12 @@ fetch(url)
         console.error('Fetch error:', error);
     });;
 
-fetch(urlComment)
+    fetch(urlComent)
     .then((response) => response.json())
     .then((dataDos) => {
-        dataArrayComment = dataDos;
-        showDataComment(dataArrayComment);
+        dataArrayComent = dataDos;
+        showDataComent(dataArrayComent);
     })
     .catch((error) => {
         console.error('Fetch error:', error);
     });;
-
-// Agregar un evento al botón "Enviar" para manejar el proceso de agregar comentarios.
-commentBtn.addEventListener("click", function () {
-    // Obtener el contenido del comentario y la puntuación del usuario.
-    const commentText = commentInput.value;
-    const puntuacion = document.getElementById("puntuacion").value;
-
-    // Crear un nuevo objeto de comentario con la información proporcionada por el usuario.
-
-    const newComment = {
-        user: "Usuario" //poner email?,
-        ,dateTime: new Date().toLocaleString(),
-        score: puntuacion,
-        description: commentText
-    };
-
-    // Agregar el nuevo comentario al arreglo de comentarios existentes.
-    dataArrayComment.push(newComment);
-
-    // Guardar el arreglo actualizado en el Local Storage.
-    localStorage.setItem("comentarios", JSON.stringify(dataArrayComment));
-
-    // Llamar a la función showDataComent para mostrar los comentarios actualizados en la página.
-    showDataComment(dataArrayComment);
-
-    // Limpiar el campo de comentario después de agregarlo.
-    commentInput.value = "";
-});
