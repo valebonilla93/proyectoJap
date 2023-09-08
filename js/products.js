@@ -37,6 +37,8 @@ function showData(dataArray, categoryName) {
 
   for (const item of dataArray) {
     const row = document.createElement("tr");
+    // Le agregamos el atributo id a cada fila creada por el for en products.html.
+    row.setAttribute("id", item.id);
     row.innerHTML = `
       <td class="imagen"><img src="${item.image}" alt="${item.name}" style="max-width: 300px;"></td>
     
@@ -49,7 +51,14 @@ function showData(dataArray, categoryName) {
   
     `;
     tbody.appendChild(row);
-  }
+    // Agregamos un controlador de eventos que actúe cuando se haga click en la fila redirigiéndonos a product-info.
+  row.addEventListener("click", () => {
+  // Guardamos el id de la fila, es decir del producto en el almacenamiento local.
+    const productId = item.id;
+    localStorage.setItem("selectedProductId", productId);
+    window.location.href = "product-info.html";
+  });
+}
 
   table.appendChild(tbody);
   container.appendChild(table);
@@ -104,6 +113,3 @@ fetch(DATA_URL)
       categoryName = data.catName;
       showData(dataArray, data.catName);
   });
-
- 
- 
