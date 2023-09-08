@@ -63,17 +63,19 @@ return dateB - dateA;
 });
 
 //Se muestra el score en formato de estrellas.
-    for (const item of dataArrayComment) {
-        const row = document.createElement('tr');
-        const starRating = '&#9733;'.repeat(Math.round(item.score));
-        const emptyStars = '&#9734;'.repeat(5 - Math.round(item.score));
+for (const item of dataArrayComment) {
+    const row = document.createElement('tr');
+    const starRating = '&#9733;'.repeat(Math.round(item.score));
+    const emptyStars = '&#9734;'.repeat(5 - Math.round(item.score));
 
-        row.innerHTML = `
-            <td>
-                <p>${item.user} - ${item.dateTime} - ${starRating}${emptyStars}</p>
-                <p>${item.description}</p>
-            </td>
-        `;
+    row.innerHTML = `
+        <td>
+            <p>${item.user} - ${item.dateTime} - <span style="color: orange;">${starRating}</span><span style="color: gray;">${emptyStars}</span></p>
+            <p>${item.description}</p>
+        </td>
+    `;
+
+
         tbody.appendChild(row);
     }
 
