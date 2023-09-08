@@ -14,24 +14,24 @@ function showDataInfo(dataArray) {
     container.appendChild(title);
 
     const cost = document.createElement('p');
-    cost.innerHTML = `Precio <br> ${dataArray.currency} ${dataArray.cost}`;
+    cost.innerHTML = `<strong> Precio </strong> <br> ${dataArray.currency} ${dataArray.cost}`;
     container.appendChild(cost);
 
     const description = document.createElement('p');
-    description.innerHTML = `Descripción <br> ${dataArray.description}`;
+    description.innerHTML = `<strong> Descripción </strong> <br> ${dataArray.description}`;
     container.appendChild(description);
 
     const category = document.createElement('p');
-    category.innerHTML = `Categoría <br> ${dataArray.category}`;
+    category.innerHTML = `<strong> Categoría</strong> <br> ${dataArray.category}`;
     container.appendChild(category);
 
     const sold = document.createElement('p');
-    sold.innerHTML = `Cantidad de vendidos <br> ${dataArray.soldCount}`;
+    sold.innerHTML = `<strong>Cantidad de vendidos</strong> <br> ${dataArray.soldCount}`;
     container.appendChild(sold);
 
     const imgContainer = document.createElement('div');
     imgContainer.classList.add('d-flex');
-    imgContainer.innerHTML = `Imágenes ilustrativas <br>`;
+    imgContainer.innerHTML = `<strong> Imágenes ilustrativas</strong> <br>`;
     container.appendChild(imgContainer);
 
     for (const image of dataArray.images) {
