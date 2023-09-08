@@ -146,10 +146,5 @@ loadComments();
 
 // Se obtiene los comentarios almacenados en el localStorage y los agrega a través de la función showComments al dataArrayComment
 window.onload = function () {
-    showEmailInNavbar()
-    const commentSave = localStorage.getItem("comentarios");
-    if (commentSave) {
-        dataArrayComment = JSON.parse(commentSave);
-        showComments(dataArrayComment);
-    }
+    showEmailInNavbar();
 }
