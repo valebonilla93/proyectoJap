@@ -83,9 +83,26 @@ rel.addEventListener("click", () => {
 
 // Función que filtra los productos de acuerdo a precios mínimos y máximos indicados en los campos correspondientes.
 botonFiltrar.addEventListener("click", () => {
-    filtrados = dataArray.filter(item => item.cost >= precioMin.value && item.cost <= precioMax.value);
-    showData(filtrados, categoryName);
-})
+  let maxPrice = Number.MAX_VALUE; // Asigna un valor alto por defecto
+  if (precioMax.value) {
+    maxPrice = parseFloat(precioMax.value);
+  }
+
+  filtrados = dataArray.filter(item => item.cost >= parseFloat(precioMin.value) && item.cost <= maxPrice);
+  
+  maxPrice);
+
+  // Aplica el ordenamiento después de aplicar el filtro
+  if (menorAMayor.checked) {
+    filtrados.sort((a, b) => a.cost - b.cost);
+  } else if (mayorAMenor.checked) {
+    filtrados.sort((b, a) => a.cost - b.cost);
+  } else if (rel.checked) {
+    filtrados.sort((b, a) => a.soldCount - b.soldCount);
+  }
+
+  showData(filtrados, categoryName);
+});
 
 // Función que limpia los filtros aplicados anteriormente.
 botonLimpiar.addEventListener("click", () => {
