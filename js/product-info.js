@@ -86,13 +86,20 @@ fetch(url)
         console.error('Fetch error:', error);
     });;
 
+    const commentSave = localStorage.getItem("comentarios");
+    if (commentSave){
+        dataArrayComment = JSON.parse(commentSave);
+        showDataComment(dataArrayComment);
+    }
+
 // Fetch al json con los comentarios de los productos.
 
 fetch(urlComment)
     .then((response) => response.json())
     .then((dataDos) => {
-        dataArrayComment = dataDos;
+        dataArrayComment = dataArrayComment.concat(dataDos);
         showDataComment(dataArrayComment);
+        localStorage.setItem("comentarios", JSON.stringify(dataArrayComment));
     })
     .catch((error) => {
         console.error('Fetch error:', error);
