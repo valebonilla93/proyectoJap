@@ -63,7 +63,7 @@ function showData(dataArray, categoryName) {
 
 // Función que ordena los productos en orden ascendente por su valor.
 sortAscending.addEventListener("click", () => {
-  if(filteredData.lenght>0){
+  if(filteredData.length>0){
   filteredData.sort((a, b) => a.cost - b.cost);
   showData(filteredData, categoryName); 
   }
@@ -75,7 +75,7 @@ sortAscending.addEventListener("click", () => {
 
 // Función que ordena los productos en orden descendente por su valor.
 sortDescending.addEventListener("click", () => {
-   if(filteredData.lenght>0){
+   if(filteredData.length>0){
     filteredData.sort((b, a) => a.cost - b.cost);
     showData(filteredData, categoryName);
     }
@@ -87,9 +87,9 @@ sortDescending.addEventListener("click", () => {
 
 // Función que ordena los productos en orden descendente por la cantidad vendida.
 sortByCount.addEventListener("click", () => {
-  if(filteredData.lenght>0) {
+  if(filteredData.length>0) {
   filteredData.sort((b, a) => a.soldCount - b.soldCount);
-  filteredData(filteredData, categoryName); 
+  showData(filteredData, categoryName); 
   }
   else{
   dataArray.sort((b, a) => a.soldCount - b.soldCount);
@@ -99,9 +99,24 @@ sortByCount.addEventListener("click", () => {
 
 // Función que filtra los productos en función de los precios mínimo y máximo ingresados en los campos correspondientes.
 filterButton.addEventListener("click", () => {
-  filteredData = dataArray.filter(item => item.cost >= priceMin.value && item.cost <= priceMax.value);
+  const min = parseFloat(priceMin.value);
+  const max = parseFloat(priceMax.value);
+
+  filteredData = dataArray.filter(item => {
+    if (isNaN(min) && isNaN(max)) {
+      return true;
+    } else if (isNaN(min)) {
+      return item.cost <= max;
+    } else if (isNaN(max)) {
+      return item.cost >= min;
+    } else {
+      return item.cost >= min && item.cost <= max;
+    }
+  });
+
   showData(filteredData, categoryName);
 });
+
 
 // Función que borra los filtros aplicados anteriormente.
 clearButton.addEventListener("click", () => {
