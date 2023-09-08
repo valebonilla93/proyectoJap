@@ -139,7 +139,7 @@ fetch(urlComment)
     .then((response) => response.json())
     .then((dataDos) => {
         dataArrayCommentApi = dataDos;
-        dataArrayComment = [...dataArrayCommentApi, ...dataArrayCommentUser];
+dataArrayComment = dataArrayCommentApi.concat(dataArrayCommentUser);
         showDataComment(dataArrayComment);
         localStorage.setItem("comentarios", JSON.stringify(dataArrayComment));
     })
