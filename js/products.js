@@ -63,20 +63,38 @@ function showData(dataArray, categoryName) {
 
 // Función que ordena los productos en orden ascendente por su valor.
 sortAscending.addEventListener("click", () => {
-  dataArray.sort((a, b) => a.cost - b.cost);
-  showData(dataArray, categoryName); 
+  if(filteredData.lenght>0){
+  filteredData.sort((a, b) => a.cost - b.cost);
+  showData(filteredData, categoryName); 
+  }
+  else{
+    dataArray.sort((a, b) => a.cost - b.cost);
+    showData(dataArray, categoryName);
+    }
 });
 
 // Función que ordena los productos en orden descendente por su valor.
 sortDescending.addEventListener("click", () => {
+   if(filteredData.lenght>0){
+    filteredData.sort((b, a) => a.cost - b.cost);
+    showData(filteredData, categoryName);
+    }
+  else{
   dataArray.sort((b, a) => a.cost - b.cost);
-  showData(dataArray, categoryName); 
+  showData(dataArray, categoryName);
+  }
 });
 
 // Función que ordena los productos en orden descendente por la cantidad vendida.
 sortByCount.addEventListener("click", () => {
+  if(filteredData.lenght>0) {
+  filteredData.sort((b, a) => a.soldCount - b.soldCount);
+  filteredData(filteredData, categoryName); 
+  }
+  else{
   dataArray.sort((b, a) => a.soldCount - b.soldCount);
   showData(dataArray, categoryName); 
+  }
 });
 
 // Función que filtra los productos en función de los precios mínimo y máximo ingresados en los campos correspondientes.
