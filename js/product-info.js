@@ -106,20 +106,6 @@ fetch(url)
         showDataComment(dataArrayComment);
     }
 
-// Fetch al json con los comentarios de los productos.
-
-fetch(urlComment)
-    .then((response) => response.json())
-    .then((dataDos) => {
-        dataArrayCommentApi = dataDos;
-        dataArrayComment = dataArrayCommentApi.concat(dataArrayUser);
-        showDataComment(dataArrayComment);
-        localStorage.setItem("comentarios", JSON.stringify(dataArrayComment));
-    })
-    .catch((error) => {
-        console.error('Fetch error:', error);
-    });;
-
 // Agregar un evento al botón "Enviar" para manejar el proceso de agregar comentarios.
 commentBtn.addEventListener("click", function () {
     // Obtener el contenido del comentario y la puntuación del usuario.
@@ -147,3 +133,16 @@ commentBtn.addEventListener("click", function () {
     // Limpiar el campo de comentario después de agregarlo.
     commentInput.value = "";
 });
+// Fetch al json con los comentarios de los productos.
+
+fetch(urlComment)
+    .then((response) => response.json())
+    .then((dataDos) => {
+        dataArrayCommentApi = dataDos;
+        dataArrayComment = dataArrayCommentApi.concat(dataArrayUser);
+        showDataComment(dataArrayComment);
+        localStorage.setItem("comentarios", JSON.stringify(dataArrayComment));
+    })
+    .catch((error) => {
+        console.error('Fetch error:', error);
+});;
