@@ -54,6 +54,13 @@ function showDataComment(dataArrayComment) {
     const tbody = document.createElement('tbody');
     title.textContent = 'Comentarios';
     containerComment.appendChild(title);
+    
+    dataArrayComment.sort((a,b)=> {
+const dateA = new Date (a.dateTime);
+const dateB = new Date (b.dateTime);
+return dateB - dateA;
+});
+
 
     for (const item of dataArrayComment) {
         const row = document.createElement('tr');
