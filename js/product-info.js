@@ -14,6 +14,9 @@ function showDataInfo(dataArray) {
     title.innerHTML = `${dataArray.name}`;
     container.appendChild(title);
 
+    const hr = document.createElement('hr');
+    container.appendChild(hr);
+
     const cost = document.createElement('p');
     cost.innerHTML = `<strong> Precio </strong> <br> ${dataArray.currency} ${dataArray.cost}`;
     container.appendChild(cost);
