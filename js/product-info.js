@@ -5,7 +5,7 @@ const urlComment = PRODUCT_INFO_COMMENTS_URL + selectedProductId + EXT_TYPE;
 const containerComment = document.getElementById('containerComentarios');
 const commentBtn = document.getElementById("comentBtn");
 const commentInput = document.getElementById("comentario");
-const email = document.getElementById("email");
+const email = localstorage.getItem("email");
 let dataArray = [];
 let dataArrayComment = [];
 
@@ -96,7 +96,7 @@ commentBtn.addEventListener("click", function () {
     // Crear un nuevo objeto de comentario con la información proporcionada por el usuario.
 
     const newComment = {
-        user: "Usuario" //poner email?,
+        user: email //poner email?,
         ,dateTime: new Date().toLocaleString(),
         score: puntuacion,
         description: commentText
