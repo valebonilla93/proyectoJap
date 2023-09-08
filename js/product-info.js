@@ -112,10 +112,6 @@ function loadComments() {
         });
 }
 
-// Muestra el email del usuario en la barra de navegación.
-window.onload = function () {
-    showEmailInNavbar()
-}
 
 // Agregar un evento al botón "Enviar" para manejar el proceso de agregar comentarios.
 commentBtn.addEventListener("click", function () {
@@ -150,6 +146,7 @@ loadComments();
 
 // Se obtiene los comentarios almacenados en el localStorage y los agrega a través de la función showComments al dataArrayComment
 window.onload = function () {
+    showEmailInNavbar()
     const commentSave = localStorage.getItem("comentarios");
     if (commentSave) {
         dataArrayComment = JSON.parse(commentSave);
