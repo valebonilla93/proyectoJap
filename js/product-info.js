@@ -85,8 +85,8 @@ function showDataComent(dataArrayComent) {
 
     for (const item of dataArrayComent) {
         const row = document.createElement('tr');
-        const starRating = '&#9733;'.repeat(Math.round(item.score)); // ★ representa una estrella llena
-        const emptyStars = '&#9734;'.repeat(5 - Math.round(item.score)); // ☆ representa una estrella vacía
+        const starRating = '&#9733;'.repeat(Math.round(item.score));
+        const emptyStars = '&#9734;'.repeat(5 - Math.round(item.score));
 
         row.innerHTML = `
             <td>
@@ -100,8 +100,6 @@ function showDataComent(dataArrayComent) {
     table.appendChild(tbody);
     containerComent.appendChild(table);
 }
-
-
 
 // Fetch al json con la información de los productos.
 fetch(url)
