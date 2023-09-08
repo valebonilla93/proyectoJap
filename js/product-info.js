@@ -75,6 +75,47 @@ function showDataComent(dataArrayComent) {
     containerComent.appendChild(table);
 }
 
+function getStarRating(score) {
+    const maxStars = 5;
+    const filledStars = Math.round(score);
+
+    let starRating = '';
+    for (let i = 1; i <= maxStars; i++) {
+        if (i <= filledStars) {
+            starRating += '<i class="fas fa-star"></i>';
+        } else {
+            starRating += '<i class="far fa-star"></i>';
+        }
+    }
+
+    return starRating;
+}
+
+function showDataComent(dataArrayComent) {
+    containerComent.innerHTML = '';
+    const title = document.createElement('h3');
+    const table = document.createElement('table');
+    const tbody = document.createElement('tbody');
+    title.textContent = 'Comentarios';
+    containerComent.appendChild(title);
+
+    for (const item of dataArrayComent) {
+        const row = document.createElement('tr');
+        const starRating = getStarRating(item.score);
+        row.innerHTML = `
+            <td>
+                <p>${item.user} - ${item.dateTime} - ${starRating}</p>
+                <p>${item.description}</p>
+            </td>
+        `;
+        tbody.appendChild(row);
+    }
+
+    table.appendChild(tbody);
+    containerComent.appendChild(table);
+}
+
+
 // Fetch al json con la información de los productos.
 fetch(url)
     .then((response) => response.json())
