@@ -7,7 +7,8 @@ const commentBtn = document.getElementById("comentBtn");
 const commentInput = document.getElementById("comentario");
 const email = localStorage.getItem('email');
 let dataArray = [];
-let dataArrayComment = [];
+let dataArrayCommentApi = [];
+let dataArrayCommentUser = [];
 
 //Función que ordena la información traída de product info.
 function showDataInfo(dataArray) {
@@ -110,8 +111,8 @@ fetch(url)
 fetch(urlComment)
     .then((response) => response.json())
     .then((dataDos) => {
-        dataArrayComment = [];
-        dataArrayComment = dataArrayComment.concat(dataDos);
+        dataArrayCommentApi = dataDos;
+        dataArrayComment = dataArrayCommentApi.concat(dataArrayUser);
         showDataComment(dataArrayComment);
         localStorage.setItem("comentarios", JSON.stringify(dataArrayComment));
     })
@@ -135,13 +136,13 @@ commentBtn.addEventListener("click", function () {
     };
 
     // Agregar el nuevo comentario al arreglo de comentarios existentes.
-    dataArrayComment.push(newComment);
+    dataArrayCommentUser.push(newComment);
 
     // Guardar el arreglo actualizado en el Local Storage.
     localStorage.setItem("comentarios", JSON.stringify(dataArrayComment));
 
     // Llamar a la función showDataComent para mostrar los comentarios actualizados en la página.
-    showDataComment(dataArrayComment);
+    showDataComment(dataArrayCommentUser);
 
     // Limpiar el campo de comentario después de agregarlo.
     commentInput.value = "";
