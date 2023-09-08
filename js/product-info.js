@@ -70,7 +70,7 @@ for (const item of dataArrayComment) {
 
     row.innerHTML = `
         <td>
-            <p>${item.user} - ${item.dateTime} - <span style="color: orange;">${starRating}</span><span style="color: gray;">${emptyStars}</span></p>
+            <p>${item.user} - ${item.dateTime} - <span style="color: orange;">${starRating}</span><span style="color: black;">${emptyStars}</span></p>
             <p>${item.description}</p>
         </td>
     `;
