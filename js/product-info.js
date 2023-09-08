@@ -11,16 +11,80 @@ let dataArrayComment = [];
 
 // Función que ordena la información traída de product info.
 function showDataInfo(dataArray) {
-    container.innerHTML = "";
 
-    // ... (resto del código para mostrar la información del producto)
+
+    container.innerHTML = "";
+    const title = document.createElement('h3');
+    title.innerHTML = `${dataArray.name}`;
+    container.appendChild(title);
+    const cost = document.createElement('p');
+    cost.innerHTML = `Precio <br> ${dataArray.currency} ${dataArray.cost}`;
+    container.appendChild(cost);
+    const description = document.createElement('p');
+    description.innerHTML = `Descripción <br> ${dataArray.description}`;
+    container.appendChild(description);
+    const category = document.createElement('p');
+    category.innerHTML = `Categoría <br> ${dataArray.category}`;
+    container.appendChild(category);
+    const sold = document.createElement('p');
+    sold.innerHTML = `Cantidad de vendidos <br> ${dataArray.soldCount}`;
+    container.appendChild(sold);
+
+    const imgContainer = document.createElement('div');
+    imgContainer.innerHTML = `Imágenes ilustrativas <br>`;
+    container.appendChild(imgContainer);
+
+    // Como hay varias imágenes en el json utilizamos un for para traerlas a todas.
+    for (const image of dataArray.images) {
+        const img = document.createElement('img');
+        img.setAttribute('src', image);
+        img.style.width = '20%';
+        img.style.height = 'auto';
+        img.classList.add('d-inline-block', 'mx-2');
+        imgContainer.appendChild(img);
+    }
+
+    container.appendChild(imgContainer);
+
 }
+
 
 // Función que muestra los comentarios
 function showComments(dataArrayComment) {
     containerComment.innerHTML = '';
-    // ... (resto del código para mostrar los comentarios)
+    containerComment.innerHTML = '';
+    const title = document.createElement('h3');
+    const table = document.createElement('table');
+    const tbody = document.createElement('tbody');
+    title.textContent = 'Comentarios';
+    containerComment.appendChild(title);
+    
+    //Ordena los comentarios mostrando primero los últimos realizados.
+    dataArrayComment.sort((a,b)=> {
+const dateA = new Date (a.dateTime);
+const dateB = new Date (b.dateTime);
+return dateB - dateA;
+});
+
+//Se muestra el score en formato de estrellas.
+    for (const item of dataArrayComment) {
+        const row = document.createElement('tr');
+        const starRating = '&#9733;'.repeat(Math.round(item.score));
+        const emptyStars = '&#9734;'.repeat(5 - Math.round(item.score));
+
+        row.innerHTML = `
+            <td>
+                <p>${item.user} - ${item.dateTime} - ${starRating}${emptyStars}</p>
+                <p>${item.description}</p>
+            </td>
+        `;
+        tbody.appendChild(row);
+    }
+
+    table.appendChild(tbody);
+    containerComment.appendChild(table);
 }
+
 
 // Función para cargar datos del producto
 function loadProductData() {
