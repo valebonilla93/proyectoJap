@@ -74,7 +74,7 @@ return dateB - dateA;
 
         row.innerHTML = `
             <td>
-                <p>${item.user} - ${item.dateTime} - ${starRating}${emptyStars}</p>
+                <p>${item.user} - ${item.dateTime} <span style="color: orange;">${starRating}</span><span style="color: black;">${emptyStars}</p>
                 <p>${item.description}</p>
             </td>
         `;
