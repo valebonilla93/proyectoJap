@@ -106,13 +106,6 @@ fetch(url)
         console.error('Fetch error:', error);
     });;
 
-    // Se obtiene los comentarios almacenados en el localStorage y los agrega a traves de la función ShowDataComment al dataArrayComment
-    const commentSave = localStorage.getItem("comentarios");
-    if (commentSave){
-        dataArrayComment = JSON.parse(commentSave);
-        showDataComment(dataArrayComment);
-    }
-
 // Agregar un evento al botón "Enviar" para manejar el proceso de agregar comentarios.
 commentBtn.addEventListener("click", function () {
     // Obtener el contenido del comentario y la puntuación del usuario.
@@ -153,3 +146,11 @@ dataArrayComment = dataArrayCommentApi.concat(dataArrayCommentUser);
     .catch((error) => {
         console.error('Fetch error:', error);
 });;
+// Se obtiene los comentarios almacenados en el localStorage y los agrega a traves de la función ShowDataComment al dataArrayComment
+    if (!dataArrayCommentApi || dataArrayCommentApi.length === 0) {
+    const commentSave = localStorage.getItem("comentarios");
+    if (commentSave){
+        dataArrayComment = JSON.parse(commentSave);
+        showDataComment(dataArrayComment);
+    }
+    }
