@@ -72,7 +72,9 @@ function showDataComment(dataArrayComment) {
     table.appendChild(tbody);
     containerComment.appendChild(table);
 }
-
+ window.onload = function() {
+    showEmailInNavbar()
+    }
 // Fetch al json con la información de los productos.
 fetch(url)
     .then((response) => response.json())
