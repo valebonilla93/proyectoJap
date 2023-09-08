@@ -9,7 +9,7 @@ const email = document.getElementById("email");
 let dataArray = [];
 let dataArrayComment = [];
 
-
+//Función que ordena la información traída de product info.
 function showDataInfo(dataArray) {
     container.innerHTML = "";
     const title = document.createElement('h3');
@@ -29,18 +29,24 @@ function showDataInfo(dataArray) {
     container.appendChild(sold);
 
     const imgContainer = document.createElement('div');
-    imgContainer.innerHTML = `imagenes ilustrativas <br>`;
+    imgContainer.innerHTML = `Imágenes ilustrativas <br>`;
     container.appendChild(imgContainer);
 
+    // Como hay varias imágenes en el json utilizamos un for para traerlas a todas.
     for (const image of dataArray.images) {
         const img = document.createElement('img');
         img.setAttribute('src', image);
+        img.style.width = '20%';
+        img.style.height = 'auto';
+        img.classList.add('d-inline-block', 'mx-2');
         imgContainer.appendChild(img);
     }
 
     container.appendChild(imgContainer);
 
 }
+
+//Función que trae los comentarios de product info comments.
 function showDataComment(dataArrayComment) {
     containerComment.innerHTML = '';
     const title = document.createElement('h3');
@@ -52,7 +58,7 @@ function showDataComment(dataArrayComment) {
     for (const item of dataArrayComment) {
         const row = document.createElement('tr');
         const starRating = '&#9733;'.repeat(Math.round(item.score));
-        const emptyStars = '&#9734;'.repeat(5 - Math.round(item.score)); 
+        const emptyStars = '&#9734;'.repeat(5 - Math.round(item.score));
 
         row.innerHTML = `
             <td>
@@ -66,6 +72,8 @@ function showDataComment(dataArrayComment) {
     table.appendChild(tbody);
     containerComment.appendChild(table);
 }
+
+// Fetch al json con la información de los productos.
 fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -75,6 +83,8 @@ fetch(url)
     .catch((error) => {
         console.error('Fetch error:', error);
     });;
+
+// Fetch al json con los comentarios de los productos.
 
 fetch(urlComment)
     .then((response) => response.json())
@@ -96,7 +106,7 @@ commentBtn.addEventListener("click", function () {
 
     const newComment = {
         user: "Usuario" //poner email?,
-        ,dateTime: new Date().toLocaleString(),
+        , dateTime: new Date().toLocaleString(),
         score: puntuacion,
         description: commentText
     };
