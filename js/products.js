@@ -111,3 +111,6 @@ fetch(DATA_URL)
     categoryName = data.catName;
     showData(dataArray, data.catName);
   });
+  window.onload = function() {
+    showEmailInNavbar()
+    }
