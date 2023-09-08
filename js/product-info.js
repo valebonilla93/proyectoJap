@@ -5,7 +5,7 @@ const urlComment = PRODUCT_INFO_COMMENTS_URL + selectedProductId + EXT_TYPE;
 const containerComment = document.getElementById('containerComentarios');
 const commentBtn = document.getElementById("comentBtn");
 const commentInput = document.getElementById("comentario");
-const email = localstorage.getItem("email");
+const email = localStorage.getItem("email");
 let dataArray = [];
 let dataArrayComment = [];
 
