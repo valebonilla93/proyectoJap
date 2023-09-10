@@ -99,12 +99,16 @@ function loadProductData() {
         });
 }
 
-// Función para cargar comentarios
 function loadComments() {
     fetch(urlComment)
         .then((response) => response.json())
         .then((data) => {
-            dataArrayComment = data;
+            // Filtra los comentarios solo para el producto seleccionado
+            dataArrayComment = data.filter(comment => comment.product === parseInt(selectedProductId));
+
+            const localComments = JSON.parse(localStorage.getItem(`comentarios_${selectedProductId}`)) || [];
+            // Combinar comentarios del JSON externo y los locales
+            dataArrayComment = mergeComments(dataArrayComment, localComments);
             showComments(dataArrayComment);
         })
         .catch((error) => {
@@ -124,15 +128,15 @@ commentBtn.addEventListener("click", function () {
         user: email,
         dateTime: new Date().toLocaleString(),
         score: puntuacion,
-        description: commentText
+        description: commentText,
+        productId: selectedProductId
     };
 
     // Agregar el nuevo comentario al arreglo de comentarios existentes.
     dataArrayComment.push(newComment);
 
     // Guardar el arreglo actualizado en el Local Storage.
-    localStorage.setItem("comentarios", JSON.stringify(dataArrayComment));
-
+    localStorage.setItem(`comentarios_${selectedProductId}`, JSON.stringify(dataArrayComment));
     // Llamar a la función showComments para mostrar los comentarios actualizados en la página.
     showComments(dataArrayComment);
 
@@ -148,3 +152,23 @@ loadComments();
 window.onload = function () {
     showEmailInNavbar();
 }
+
+// Función para combinar comentarios sin duplicados
+function mergeComments(array1, array2) {
+    const uniqueComments = new Map();
+
+    // Agregar comentarios del array1 al mapa
+    array1.forEach((comment) => {
+        uniqueComments.set(comment.dateTime, comment);
+    });
+
+    // Agregar comentarios del array2 al mapa, sobrescribiendo los duplicados
+    array2.forEach((comment) => {
+        uniqueComments.set(comment.dateTime, comment);
+    });
+
+    // Convertir el mapa nuevamente en un arreglo de comentarios
+    return Array.from(uniqueComments.values());
+}
+
+
