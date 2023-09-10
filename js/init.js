@@ -14,7 +14,12 @@ let showSpinner = function(){
 let hideSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "none";
 }
-
+function showEmailInNavbar (){
+const email = localStorage.getItem('email');
+  if(email){
+    document.getElementById('email').textContent = email;
+}
+}
 let getJSONData = function(url){
     let result = {};
     showSpinner();

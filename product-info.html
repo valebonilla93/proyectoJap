@@ -15,6 +15,7 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link href="css/product-info.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -38,12 +39,17 @@
           </li>
           <li class="nav-item">
           </li>
+           <li class="nav-item">
+            <span class="nav-link"><span id="email"></span></span>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
   <main>
-    <div class="container" id="container">
+    <fieldset class="row align-items-center col-md-8 mx-auto"> 
+
+    <div id="container">
       
       </div>
       <div id="containerComentarios">
@@ -51,8 +57,8 @@
       </div>
       <!--Se crea el formulario para ingresar comentarios.-->
       <div>
-        <h3>Comentar</h3>
-        <hr class="my-3">
+        <br>
+        <h2>Comentar</h2>
         <div class="form-group">
           <label for="comentario">Tu opinión:</label>
           <textarea id="comentario" class="form-control" rows="3"></textarea>
@@ -92,6 +98,7 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/product-info.js"></script>
+</fieldset>
 </body>
 
 </html>

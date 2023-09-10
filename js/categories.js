@@ -83,7 +83,9 @@ function sortAndShowCategories(sortCriteria, categoriesArray){
     //Muestro las categorías ordenadas
     showCategoriesList();
 }
-
+ window.onload = function() {
+    showEmailInNavbar()
+    }
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
