@@ -23,9 +23,12 @@ function showData(dataArray, categoryName) {
     container.appendChild(result);
     return;
   }
-  const title = document.createElement("h1");
+
+  const title = document.createElement("h2");
   title.textContent = "Productos";
-  const subtitle = document.createElement("h3");
+  title.classList.add("text-center");
+  const subtitle = document.createElement("p");
+  subtitle.classList.add("text-center");
   subtitle.innerHTML = `Aquí verás todos los productos de la categoría <em>${categoryName}</em>.`;
 
   container.appendChild(title);
