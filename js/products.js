@@ -39,13 +39,15 @@ function showData(dataArray, categoryName) {
     // Agrega un atributo id a cada fila creada en el bucle en products.html.
     row.setAttribute("id", item.id);
     row.innerHTML = `
-      <td class="image"><img src="${item.image}" alt="${item.name}" style="max-width: 300px;"></td>
+    <div class="list-group-item list-group-item-action cursor-active">
+      <td class="img-thumbnail"><img src="${item.image}" alt="${item.name}" style="max-width: 300px;"></td>
     
       <td class="rowText">
-        <p class="productTitle">${item.name} - ${item.currency} ${item.cost} </p>
-        <p>${item.description}</p>
+        <p class="d-flex w-100 justify-content-between" class="mb-1">${item.name} - ${item.currency} ${item.cost} </p>
+        <p class="mb-1">${item.description}</p>
       </td>
-      <td class="rowText">${item.soldCount} vendidos </td>
+      <td class="rowText" class="text-muted">${item.soldCount} vendidos </td>
+      </div>
     `;
     tbody.appendChild(row);
     // Agrega un controlador de eventos que redirige a product-info cuando se hace clic en una fila.
