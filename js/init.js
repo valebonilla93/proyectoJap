@@ -44,3 +44,27 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+function modeDark() {
+  const darkModeButton = document.getElementById("darkMode");
+  const htmlElement = document.getElementById("htmlElement");
+  const actualTheme = localStorage.getItem("theme");
+
+  if (actualTheme) {
+    htmlElement.dataset.bsTheme = actualTheme;
+  }
+
+  darkModeButton.addEventListener("click", () => {
+    if (htmlElement.dataset.bsTheme === "light") {
+      htmlElement.dataset.bsTheme = "dark";
+    } else {
+      htmlElement.dataset.bsTheme = "light";
+    }
+
+    localStorage.setItem("theme", htmlElement.dataset.bsTheme);
+  });
+}
+
+
+
+

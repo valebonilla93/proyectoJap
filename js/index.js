@@ -1,3 +1,5 @@
+
+
 document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", 101);
@@ -25,5 +27,11 @@ window.onload = function() {
  } 
     console.log(email, password);
 }
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    modeDark();
+  });
 
  

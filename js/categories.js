@@ -143,3 +143,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         showCategoriesList();
     });
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    modeDark();
+  });

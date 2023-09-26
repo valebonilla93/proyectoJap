@@ -151,3 +151,8 @@ document.addEventListener("DOMContentLoaded", function(e){
 window.onload = function() {
     showEmailInNavbar()
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        modeDark();
+      });
+    

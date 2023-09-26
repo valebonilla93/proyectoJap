@@ -173,4 +173,9 @@ function mergeComments(array1, array2) {
     return Array.from(uniqueComments.values());
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    modeDark();
+  });
+
+
 
