@@ -45,6 +45,7 @@ let getJSONData = function(url){
     });
 }
 
+//Función que cambia el valor del atributo dataset-bs-theme del html entre light y dark según la selección del usuario. Esta función se llamará desde todos los js.
 function modeDark() {
   const darkModeButton = document.getElementById("darkMode");
   const htmlElement = document.getElementById("htmlElement");
