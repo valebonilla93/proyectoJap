@@ -55,9 +55,20 @@ function showDataInfo(dataArray) {
     const titleRelated = document.createElement('h3');
     titleRelated.innerHTML = `Productos relacionados`;
     relatedProductsTitle.appendChild(titleRelated);
+
+    const rowContainer = document.createElement('div');
+rowContainer.classList.add('row', 'justify-content-center', 'container-x3');
+
+
+
+relatedProductsContainer.appendChild(rowContainer);
+
     for (const relatedProduct of dataArray.relatedProducts) {
+        const colProductRelated = document.createElement('div');
+    colProductRelated.classList.add('col-lg-6',);
+
         const divProductRelated = document.createElement('div');
-        divProductRelated.classList.add("card");
+        divProductRelated.classList.add('card');
         divProductRelated.setAttribute("id", relatedProduct.id);
         relatedProductsContainer.appendChild(divProductRelated);
         const imgRelated = document.createElement('img');
@@ -86,6 +97,15 @@ function showDataInfo(dataArray) {
             localStorage.setItem("selectedProductId", productId);
             window.location.href = "product-info.html";
           });
+
+          // Agrega los elementos a la tarjeta y la columna
+    divProductRelated.appendChild(imgRelated);
+    divProductRelated.appendChild(divRelated);
+    divRelated.appendChild(nameRelated);
+    colProductRelated.appendChild(divProductRelated);
+
+    // Agrega la columna a la fila
+    rowContainer.appendChild(colProductRelated);
 
 
     }
