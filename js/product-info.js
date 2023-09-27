@@ -82,6 +82,7 @@ relatedProductsContainer.appendChild(rowContainer);
         nameRelated.setAttribute("id", relatedProduct.id);
         nameRelated.classList.add("card-text");
         nameRelated.innerHTML = relatedProduct.name;
+        nameRelated.style.fontSize = '15px';
         relatedProductsContainer.appendChild(nameRelated);
 
         nameRelated.addEventListener("click", () => {
