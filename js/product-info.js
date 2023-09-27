@@ -59,16 +59,35 @@ function showDataInfo(dataArray) {
         const divProductRelated = document.createElement('div');
         divProductRelated.classList.add("card");
         divProductRelated.setAttribute("id", relatedProduct.id);
+        relatedProductsContainer.appendChild(divProductRelated);
         const imgRelated = document.createElement('img');
         imgRelated.setAttribute('src', relatedProduct.image);
+        imgRelated.setAttribute("id", relatedProduct.id);
         imgRelated.classList.add("card-img-top");
         relatedProductsContainer.appendChild(imgRelated);
         const divRelated = document.createElement('div');
         divRelated.classList.add("card-body");
         const nameRelated = document.createElement('p');
+        nameRelated.setAttribute("id", relatedProduct.id);
         nameRelated.classList.add("card-text");
         nameRelated.innerHTML = relatedProduct.name;
         relatedProductsContainer.appendChild(nameRelated);
+
+        nameRelated.addEventListener("click", () => {
+            // Almacena el id de la fila, es decir, el producto, en el almacenamiento local.
+            const productId = relatedProduct.id;
+            localStorage.setItem("selectedProductId", productId);
+            window.location.href = "product-info.html";
+          });
+
+          imgRelated.addEventListener("click", () => {
+            // Almacena el id de la fila, es decir, el producto, en el almacenamiento local.
+            const productId = relatedProduct.id;
+            localStorage.setItem("selectedProductId", productId);
+            window.location.href = "product-info.html";
+          });
+
+
     }
     
    
