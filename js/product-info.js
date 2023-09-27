@@ -44,9 +44,38 @@ function showDataInfo(dataArray) {
         img.classList.add('img-thumbnail')
     }
 
+    
+
+
     container.appendChild(imgContainer);
 
+    const relatedProductsContainer = document.getElementById('relatedProductsContainer');
+
+
+    const titleRelated = document.createElement('h3');
+    titleRelated.innerHTML = `Productos relacionados`;
+    relatedProductsTitle.appendChild(titleRelated);
+    for (const relatedProduct of dataArray.relatedProducts) {
+        const divProductRelated = document.createElement('div');
+        divProductRelated.classList.add("card");
+        divProductRelated.setAttribute("id", relatedProduct.id);
+        const imgRelated = document.createElement('img');
+        imgRelated.setAttribute('src', relatedProduct.image);
+        imgRelated.classList.add("card-img-top");
+        relatedProductsContainer.appendChild(imgRelated);
+        const divRelated = document.createElement('div');
+        divRelated.classList.add("card-body");
+        const nameRelated = document.createElement('p');
+        nameRelated.classList.add("card-text");
+        nameRelated.innerHTML = relatedProduct.name;
+        relatedProductsContainer.appendChild(nameRelated);
+    }
+    
+   
+
 }
+
+
 
 
 // Función que muestra los comentarios
@@ -176,6 +205,9 @@ function mergeComments(array1, array2) {
 document.addEventListener("DOMContentLoaded", function() {
     modeDark();
   });
+
+
+
 
 
 
