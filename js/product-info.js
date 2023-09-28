@@ -34,17 +34,45 @@ function showDataInfo(dataArray) {
     imgContainer.innerHTML = `<strong>Imágenes ilustrativas</strong> <br>`;
     container.appendChild(imgContainer);
 
-    // Como hay varias imágenes en el json utilizamos un for para traerlas a todas.
-    for (const image of dataArray.images) {
-        const img = document.createElement('img');
-        img.setAttribute('src', image);
-        imgContainer.appendChild(img);
-        img.classList.add('d-inline-block');
-        img.classList.add('img')
-        img.classList.add('img-thumbnail')
+
+    // CAROUSEL
+
+    function loadCarouselImages(images) {
+        // función para cargar imágenes en el carrusel, seleccionamos el el elemento del carrusel y su contenedor interno
+        const myCarousel = document.querySelector('#myCarousel');
+        const carouselInner = myCarousel.querySelector('.carousel-inner');
+
+        // eliminar cualquier contenido previo del carrusel para evitar duplicados
+        carouselInner.innerHTML = '';
+
+        // recorremos las imágenes y crea elementos del carrusel para cada una de las imagenes
+        images.forEach((image, index) => {
+            const carouselItem = document.createElement('div');
+            carouselItem.classList.add('carousel-item');
+
+            // establece la primera imagen como activa
+            if (index === 0) {
+                carouselItem.classList.add('active');
+            }
+
+            // crear el elemento de imagen
+            const img = document.createElement('img');
+            img.src = image;
+            img.classList.add('d-block', 'w-100');
+            img.alt = `Slide ${index + 1}`;
+
+            // agregamos la imagen al elemento de carrusel
+            carouselItem.appendChild(img);
+
+            // agregamos el elemento de carrusel al contenedor interno
+            carouselInner.appendChild(carouselItem);
+        });
     }
 
-    
+    // llamamos a la función para cargar las imágenes en el carrusel
+    loadCarouselImages(dataArray.images);
+
+    // fin del código del carrusel
 
 
     container.appendChild(imgContainer);
@@ -57,15 +85,16 @@ function showDataInfo(dataArray) {
     relatedProductsTitle.appendChild(titleRelated);
 
     const rowContainer = document.createElement('div');
-rowContainer.classList.add('row', 'justify-content-center', 'container-x3');
+    rowContainer.classList.add('row', 'justify-content-center', 'container-x3');
 
 
 
-relatedProductsContainer.appendChild(rowContainer);
+
+    relatedProductsContainer.appendChild(rowContainer);
 
     for (const relatedProduct of dataArray.relatedProducts) {
         const colProductRelated = document.createElement('div');
-    colProductRelated.classList.add('col-lg-6',);
+        colProductRelated.classList.add('col-lg-6',);
 
         const divProductRelated = document.createElement('div');
         divProductRelated.classList.add('card');
@@ -90,28 +119,28 @@ relatedProductsContainer.appendChild(rowContainer);
             const productId = relatedProduct.id;
             localStorage.setItem("selectedProductId", productId);
             window.location.href = "product-info.html";
-          });
+        });
 
-          imgRelated.addEventListener("click", () => {
+        imgRelated.addEventListener("click", () => {
             // Almacena el id de la fila, es decir, el producto, en el almacenamiento local.
             const productId = relatedProduct.id;
             localStorage.setItem("selectedProductId", productId);
             window.location.href = "product-info.html";
-          });
+        });
 
-          // Agrega los elementos a la tarjeta y la columna
-    divProductRelated.appendChild(imgRelated);
-    divProductRelated.appendChild(divRelated);
-    divRelated.appendChild(nameRelated);
-    colProductRelated.appendChild(divProductRelated);
+        // Agrega los elementos a la tarjeta y la columna
+        divProductRelated.appendChild(imgRelated);
+        divProductRelated.appendChild(divRelated);
+        divRelated.appendChild(nameRelated);
+        colProductRelated.appendChild(divProductRelated);
 
-    // Agrega la columna a la fila
-    rowContainer.appendChild(colProductRelated);
+        // Agrega la columna a la fila
+        rowContainer.appendChild(colProductRelated);
 
 
     }
-    
-   
+
+
 
 }
 
@@ -129,15 +158,15 @@ function showComments(dataArrayComment) {
     title.textContent = 'Comentarios';
     title.style.paddingTop = '1%';
     containerComment.appendChild(title);
-    
-    //Ordena los comentarios mostrando primero los últimos realizados.
-    dataArrayComment.sort((a,b)=> {
-const dateA = new Date (a.dateTime);
-const dateB = new Date (b.dateTime);
-return dateB - dateA;
-});
 
-//Se muestra el score en formato de estrellas.
+    //Ordena los comentarios mostrando primero los últimos realizados.
+    dataArrayComment.sort((a, b) => {
+        const dateA = new Date(a.dateTime);
+        const dateB = new Date(b.dateTime);
+        return dateB - dateA;
+    });
+
+    //Se muestra el score en formato de estrellas.
     for (const item of dataArrayComment) {
         const row = document.createElement('tr');
         const starRating = '&#9733;'.repeat(Math.round(item.score));
@@ -242,9 +271,9 @@ function mergeComments(array1, array2) {
     return Array.from(uniqueComments.values());
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     modeDark();
-  });
+});
 
 
 
