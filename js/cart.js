@@ -6,17 +6,14 @@ window.onload = function() {
         modeDark();
       });
 
-    // Realizar la solicitud AJAX al carrito de compras
-fetch(CART_INFO_URL + "25801" + EXT_TYPE)
-.then(response => response.json())
-.then(cartData => {
-  // Obtener la información del carrito y del producto precargado
-  const user = cartData.user;
+  // Función que muestra los productos del carrito del cliente.
+  function ShowCartItems(cartData) {
+  
   const articles = cartData.articles;
 
-  // Verificar si hay productos en el carrito
+  // Con un condicional verificamos si hay productos en el carrito, y si los hay los mostramos en una tabla.
   if (articles.length > 0) {
-    // Crear una tabla para mostrar los productos
+    
     const table = document.createElement("table");
     table.className = "table";
 
@@ -44,7 +41,7 @@ fetch(CART_INFO_URL + "25801" + EXT_TYPE)
 
     tbody.appendChild(headerRow);
 
-    // Recorrer y mostrar los productos
+    // Usamos un forEach para recorrer el array y mostrar los productos en nuestra tabla.
     articles.forEach(product => {
       const row = document.createElement("tr");
 
@@ -56,15 +53,16 @@ fetch(CART_INFO_URL + "25801" + EXT_TYPE)
       image.style.height = "auto";
       cellImage.appendChild(image);
 
-      const cellName = document.createElement("td");
-      cellName.textContent = product.name;
+      const name = document.createElement("td");
+      name.textContent = product.name;
 
-      const cellCurrency = document.createElement("td");
-      cellCurrency.textContent = product.currency;
+      const currency = document.createElement("td");
+      currency.textContent = product.currency;
 
-      const cellCost = document.createElement("td");
-      cellCost.textContent = product.unitCost;
+      const cost = document.createElement("td");
+      cost.textContent = product.unitCost;
 
+      // Mostramos la cantidad de artículos en un input
       const cellQuantity = document.createElement("td");
       const inputQuantity = document.createElement("input");
       inputQuantity.type = "text"; 
@@ -72,41 +70,50 @@ fetch(CART_INFO_URL + "25801" + EXT_TYPE)
       inputQuantity.className = "hidden-input";
       cellQuantity.appendChild(inputQuantity);
 
-      const cellSubtotal = document.createElement("td");
-      cellSubtotal.textContent = product.unitCost * product.count;
+      // Calculamos el subtotal de acuerdo a la cantidad de productos y el valor unitario.
+      const subtotal = document.createElement("td");
+      subtotal.textContent = product.unitCost * product.count;
 
       row.appendChild(cellImage);
-      row.appendChild(cellName);
-      row.appendChild(cellCurrency);
-      row.appendChild(cellCost);
+      row.appendChild(name);
+      row.appendChild(currency);
+      row.appendChild(cost);
       row.appendChild(cellQuantity);
-      row.appendChild(cellSubtotal);
+      row.appendChild(subtotal);
 
       tbody.appendChild(row);
 
+      //Controlador de eventos input para que se modifique el subtotal según el valor ingresado en la cantidad
       inputQuantity.addEventListener("input", function() {
-        const newQuantity = parseInt(inputQuantity.value, 10); // Obtener la nueva cantidad como número entero
+        const newQuantity = parseInt(inputQuantity.value, 10);
         if (!isNaN(newQuantity)) {
-          // Verificar si la entrada es un número válido
-          const newSubtotal = newQuantity * product.unitCost; // Calcular el nuevo subtotal
-          cellSubtotal.textContent = newSubtotal; // Actualizar el contenido del subtotal
+          const newSubtotal = newQuantity * product.unitCost; 
+          subtotal.textContent = newSubtotal; 
         }
       });
     });
 
     table.appendChild(tbody);
 
-    // Agregar la tabla al documento
+    
     const cartContainer = document.getElementById("cartContainer");
     cartContainer.appendChild(table);
   } else {
+
     // Si no hay productos en el carrito, mostrar un mensaje
     const cartContainer = document.getElementById("cartContainer");
     const message = document.createElement("p");
     message.textContent = "El carrito está vacío.";
     cartContainer.appendChild(message);
   }
-})
-.catch(error => {
-  console.error("Error al obtener el carrito de compras:", error);
-});
+};
+
+// Fetch al JSON
+fetch(CART_INFO_URL + "25801" + EXT_TYPE)
+  .then(response => response.json())
+  .then(cartData => {
+    ShowCartItems(cartData); 
+  })
+  .catch(error => {
+    console.error("Error al obtener el carrito de compras:", error);
+  });
