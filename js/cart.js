@@ -108,12 +108,26 @@ window.onload = function() {
   }
 };
 
+// Obtenemos el carrito guardado en el almacenamiento local.
+const cart = JSON.parse(localStorage.getItem("cart"));
+
 // Fetch al JSON
 fetch(CART_INFO_URL + "25801" + EXT_TYPE)
   .then(response => response.json())
   .then(cartData => {
-    ShowCartItems(cartData); 
+
+    // Verificamos si hay productos en el almacenamiento local y en el caso de haberlos los combinamos con los traidos del json.
+    if (cart && cart.length > 0) {
+      cartData.articles = [...cart, ...cartData.articles];
+    }
+    ShowCartItems(cartData);
   })
   .catch(error => {
     console.error("Error al obtener el carrito de compras:", error);
   });
+
+
+
+
+
+

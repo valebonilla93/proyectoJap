@@ -14,9 +14,57 @@ function showDataInfo(dataArray) {
 
 
     container.innerHTML = "";
+    const titleContainer = document.createElement('div');
+    titleContainer.className = 'd-flex justify-content-between align-items-center mb-2';
+
     const title = document.createElement('h1');
-    title.innerHTML = `${dataArray.name} <hr>`;
-    container.appendChild(title);
+    title.innerHTML = `${dataArray.name}`;
+
+    //Se agrega el botón para agregar el producto al carrito del cliente.
+    const buy = document.createElement('button');
+    buy.className = 'btn btn-success';
+    buy.textContent = 'Agregar al carrito';
+
+// Controlador de eventos que define lo que sucederá al clickear el botón buy: se agregará el producto al localStorage para ser usado en cart.js
+buy.addEventListener("click", function () {
+    const addProduct = {
+        // Utilizamos el id ya guardado previamente en el localStorage.
+        id: selectedProductId,
+        name: dataArray.name,
+        currency: dataArray.currency,
+        unitCost: dataArray.cost,
+        count: 1,
+        image: dataArray.images[0]
+    };
+
+    // Creamos una constante para guardar el carrito actual desde el localStorage o crear uno nuevo si no existiese.
+    const actualCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Usamos un condicional, si el producto ya está en el carrito se modifica su cantidad en 1, si no lo agregamos.
+    const existingProduct = actualCart.findIndex(product => product.id === addProduct.id);
+
+    if (existingProduct !== -1) {
+        actualCart[existingProduct].count++;
+    } else {
+        actualCart.push(addProduct);
+    }
+
+    //localStorage solo nos permite guardar strings por eso es necesario usar json.stringify para convertir nuestro objeto.
+    localStorage.setItem("cart", JSON.stringify(actualCart));
+    
+    //Agregamos una alerta para que se avise que el producto se agregó con éxito al carrito.
+    alert("El producto ha sido agregado a su carrito.")
+
+});
+
+
+
+    titleContainer.appendChild(title);
+    titleContainer.appendChild(buy);
+
+    container.appendChild(titleContainer);
+
+
     const cost = document.createElement('p');
     cost.innerHTML = `<strong>Precio</strong> <br> ${dataArray.currency} ${dataArray.cost}`;
     container.appendChild(cost);
@@ -274,6 +322,8 @@ function mergeComments(array1, array2) {
 document.addEventListener("DOMContentLoaded", function () {
     modeDark();
 });
+
+
 
 
 
