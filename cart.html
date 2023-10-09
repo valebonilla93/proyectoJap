@@ -49,6 +49,44 @@
   <main>
     <div class="container" id="cartContainer">
     </div>
+    <div class="form-container"> 
+        <h2>Tipo de envío</h2>
+        <form method="post">
+          <div>
+            <input type="radio" name="tipoEnvio" value="premium" id="radPremium" checked>
+            <label for="radPremium">Premium 2 a 5 dias (15%)</label>
+          </div>
+          <div>
+            <input type="radio" name="tipoEnvio" value="express" id="radExpress">
+            <label for="radExpress">Express 5 a 8 dias (7%)</label>
+          </div>
+          <div>
+            <input type="radio" name="tipoEnvio" value="standard" id="radStandard">
+            <label for="radStandard">Standard 12 a 15 dias (5%) </label>
+          </div>
+  
+          <br>
+
+          <h2>Dirección de envío</h2>
+  
+          <label for="calle">Calle:</label><br>
+          <input type="text" name="calle" id="calle" required><br>
+  
+          <label for="numero">Número:</label><br>
+          <input type="text" name="numero" id="numero" required><br>
+  
+          <label for="esquina">Esquina:</label><br>
+          <input type="text" name="esquina" id="esquina" required><br>
+  
+          <br>
+  
+          <input type="submit" value="Enviar">
+        </form>
+      </div>
+
+      </form>
+
+    </div>  
   </main>
   <footer class="text-muted">
     <div class="container">
