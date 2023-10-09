@@ -8,52 +8,49 @@
   
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/login.css" rel="stylesheet">
+
 
 </head>
 
 <body>
-  <main class="mt-5">
-
-    <fieldset>
-      <main class="mt-5">
-  
-        <div id="contenedor">
-  
-          <img src="img/login.png" alt="Logo de e-mercado">
-  
-          <form action="index.html" id="formulario">
-  
-            <h1>Inicio de sesión</h1>
-  
-            <label for="name"></label>
-            <input id="email" type="text" placeholder="Email" required>
-  
-            <br>
-  
-            <label for="name"></label>
-            <input id="password" type="password" placeholder="Constraseña"  required>
-  
-            <br>
-  
-            <p><a id="forgotPass" href="#">¿Olvidaste tu contraseña?</a></p> 
-  
-            <label for="mostrarPass" class="cont">Mostrar contraseña</label>
-            <input id="mostrarPass" class="cont" type="checkbox">
-            <br>
-            <input id="submit" type="submit" value="Ingresar" >
-  
-          </form>
-
+  <fieldset>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <img src="img/login.png" alt="Logo de e-mercado" class="img-fluid mx-auto d-block">
+                <h1 class="text-center">Inicio de sesión</h1>
+                <form action="index.html" id="formulario">
+                    <div class="form-group">
+                        <label for="email"></label>
+                        <input type="text" class="form-control" id="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password"></label>
+                        <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+                    </div>
+                    <p class="text-center"><a href="#">¿Olvidaste tu contraseña?</a></p>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="mostrarPass">
+                        <label class="form-check-label" for="mostrarPass">Mostrar contraseña</label>
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-primary" id="submit" value="Ingresar">
+                    </div>
+                </form>
+            </div>
         </div>
-  
-      </main>
-    </fieldset>
+    </div>
+</fieldset>
     <br>
 
-    <footer>
-      <p><a href="#">Volver arriba</a></p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jóvenes a Programar</a></p>
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-end">
+          <a href="#">Volver arriba</a>
+        </p>
+        <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
+      </div>
     </footer>
   
     <script src="js/login.js"></script>

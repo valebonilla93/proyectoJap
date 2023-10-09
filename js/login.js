@@ -1,3 +1,4 @@
+
 const checkbox = document.getElementById('mostrarPass');
 const password = document.getElementById('password');
 const email = document.getElementById('email');

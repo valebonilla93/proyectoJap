@@ -43,7 +43,7 @@ function showData(dataArray, categoryName) {
     row.setAttribute("id", item.id);
     row.innerHTML = `
     <div class="list-group-item list-group-item-action cursor-active">
-      <td class="img-thumbnail"><img src="${item.image}" alt="${item.name}" style="max-width: 300px;"></td>
+      <td class="img-thumbnail"><img src="${item.image}" class="img-fluid w-100" alt="${item.name}" style="max-width: 300px;"></td>
     
       <td class="rowText">
         <p class="d-flex w-100 justify-content-between" class="mb-1">${item.name} - ${item.currency} ${item.cost} </p>
