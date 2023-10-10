@@ -13,14 +13,17 @@ window.onload = function() {
 
   // Con un condicional verificamos si hay productos en el carrito, y si los hay los mostramos en una tabla.
   if (articles.length > 0) {
+    const tableClasses = "table table-striped table-bordered table-responsive-md"
     
     const table = document.createElement("table");
+    table.className = tableClasses;
     table.className = "table";
 
     const tbody = document.createElement("tbody");
 
     // Encabezado de la tabla
     const headerRow = document.createElement("tr");
+    headerRow.className = "d-none d-sm-table-row";
     const headerImage = document.createElement("th");
     const headerName = document.createElement("th");
     headerName.textContent = "Nombre";
@@ -51,6 +54,7 @@ window.onload = function() {
       image.alt = product.name;
       image.style.width = "10rem"; 
       image.style.height = "auto";
+      image.className = "img-fluid w-30"
       cellImage.appendChild(image);
 
       const name = document.createElement("td");
@@ -97,6 +101,7 @@ window.onload = function() {
 
     
     const cartContainer = document.getElementById("cartContainer");
+    cartContainer.className = "table-responsive"
     cartContainer.appendChild(table);
   } else {
 
