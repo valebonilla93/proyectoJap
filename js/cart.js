@@ -7,7 +7,7 @@ window.onload = function() {
       });
 
   // Función que muestra los productos del carrito del cliente.
-  function ShowCartItems(cartData) {
+  function showCartItems(cartData) {
   
   const articles = cartData.articles;
 
@@ -120,7 +120,7 @@ fetch(CART_INFO_URL + "25801" + EXT_TYPE)
     if (cart && cart.length > 0) {
       cartData.articles = [...cart, ...cartData.articles];
     }
-    ShowCartItems(cartData);
+    showCartItems(cartData);
   })
   .catch(error => {
     console.error("Error al obtener el carrito de compras:", error);
