@@ -1,20 +1,23 @@
-window.onload = function() {
-    showEmailInNavbar()
-    }
+window.onload = function () {
+  showEmailInNavbar()
+}
 
-    document.addEventListener("DOMContentLoaded", function() {
-        modeDark();
-      });
+document.addEventListener("DOMContentLoaded", function () {
+  modeDark();
+});
 
-  // Función que muestra los productos del carrito del cliente.
-  function showCartItems(cartData) {
-  
+//Declaramos la variable que va a almacenar el subtotal de productos en el carrito en dólares.
+let subtotalUSD = 0;
+
+// Función que muestra los productos del carrito del cliente.
+function showCartItems(cartData) {
+
   const articles = cartData.articles;
 
   // Con un condicional verificamos si hay productos en el carrito, y si los hay los mostramos en una tabla.
   if (articles.length > 0) {
     const tableClasses = "table table-striped table-bordered table-responsive-md"
-    
+
     const table = document.createElement("table");
     table.className = tableClasses;
     table.className = "table";
@@ -52,7 +55,7 @@ window.onload = function() {
       const image = document.createElement("img");
       image.src = product.image;
       image.alt = product.name;
-      image.style.width = "10rem"; 
+      image.style.width = "10rem";
       image.style.height = "auto";
       image.className = "img-fluid w-30"
       cellImage.appendChild(image);
@@ -69,7 +72,7 @@ window.onload = function() {
       // Mostramos la cantidad de artículos en un input
       const cellQuantity = document.createElement("td");
       const inputQuantity = document.createElement("input");
-      inputQuantity.type = "text"; 
+      inputQuantity.type = "text";
       inputQuantity.value = product.count;
       inputQuantity.className = "hidden-input";
       cellQuantity.appendChild(inputQuantity);
@@ -88,18 +91,24 @@ window.onload = function() {
       tbody.appendChild(row);
 
       //Controlador de eventos input para que se modifique el subtotal según el valor ingresado en la cantidad
-      inputQuantity.addEventListener("input", function() {
+      inputQuantity.addEventListener("input", () => {
         const newQuantity = parseInt(inputQuantity.value, 10);
         if (!isNaN(newQuantity)) {
-          const newSubtotal = newQuantity * product.unitCost; 
-          subtotal.textContent = newSubtotal; 
+          const newSubtotal = newQuantity * product.unitCost;
+          
+          // Error, calcula en base al último input realizado, no tiene en cuenta lo que había antes.
+          subtotal.textContent = newSubtotal;
+
+          subtotalUSD = newSubtotal
+          subtotalElement.textContent = `USD ${subtotalUSD.toFixed(2)}`
+          updateTotalYEnvio();
         }
       });
     });
 
     table.appendChild(tbody);
 
-    
+
     const cartContainer = document.getElementById("cartContainer");
     cartContainer.className = "table-responsive"
     cartContainer.appendChild(table);
@@ -111,6 +120,51 @@ window.onload = function() {
     message.textContent = "El carrito está vacío.";
     cartContainer.appendChild(message);
   }
+
+  // Calculamos el subtotal en USD
+  let subtotalUSD = calcSubtotalUSD(cartData);
+
+  // Insertamos ese subtotal en la celda correspondiente
+  const subtotalElement = document.getElementById("subtotales");
+  subtotalElement.textContent = `USD ${subtotalUSD.toFixed(2)}`;
+
+
+  // Insertamos el costo de envio en la celda correspondiente.
+  const envioElement = document.getElementById("envio");
+  const totalElement = document.getElementById("total");
+  const tipoEnvioElements = document.getElementsByName("tipoEnvio");
+
+  //Función que calcula el costo de envío según el tipo seleccionado 
+  function updateTotalYEnvio() {
+    let totalUSD = subtotalUSD;
+    let costoEnvio = 0;
+
+    for (const tipoEnvioElement of tipoEnvioElements) {
+      if (tipoEnvioElement.checked) {
+        const tipoEnvio = tipoEnvioElement.value;
+        if (tipoEnvio === "premium") {
+          costoEnvio = totalUSD * 0.15;
+        } else if (tipoEnvio === "express") {
+          costoEnvio = totalUSD * 0.07;
+        } else if (tipoEnvio === "standard") {
+          costoEnvio = totalUSD * 0.05;
+        }
+      }
+    }
+
+    totalUSD += costoEnvio;
+
+    envioElement.textContent = `USD ${costoEnvio.toFixed(2)}`;
+    totalElement.textContent = `USD ${totalUSD.toFixed(2)}`;
+  }
+
+  // Controlador de eventos para que al seleccionar un tipo de envío se llame a la función y haga el cambio correspondiente.
+  for (const tipoEnvioElement of tipoEnvioElements) {
+    tipoEnvioElement.addEventListener("change", updateTotalYEnvio);
+  }
+
+  // Actualiza los totales.
+  updateTotalYEnvio();
 };
 
 // Obtenemos el carrito guardado en el almacenamiento local.
@@ -130,6 +184,23 @@ fetch(CART_INFO_URL + "25801" + EXT_TYPE)
   .catch(error => {
     console.error("Error al obtener el carrito de compras:", error);
   });
+
+//Función para calcular los subtotales en dólares.
+function calcSubtotalUSD(cartData) {
+  let subtotalUSD = 0;
+
+  cartData.articles.forEach(product => {
+    if (product.currency === "UYU") {
+      subtotalUSD += product.unitCost / 40 * product.count;
+    } else {
+      subtotalUSD += product.unitCost * product.count;
+    }
+  });
+
+  return subtotalUSD;
+}
+
+
 
 
 
