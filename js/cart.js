@@ -78,9 +78,16 @@ function showCartItems(cartData) {
       inputQuantity.className = "hidden-input";
       cellQuantity.appendChild(inputQuantity);
 
-      // Calculamos el subtotal de acuerdo a la cantidad de productos y el valor unitario.
+      // Calculamos el subtotal de acuerdo a la cantidad de productos, el valor unitario y lo expresamos en dolares.
       const subtotal = document.createElement("td");
-      subtotal.textContent = product.unitCost * product.count;
+      if (product.currency === "UYU") {
+        const subtotalUSD = (product.unitCost / 40) * product.count;
+        subtotal.textContent = `USD ${subtotalUSD.toFixed(2)}`;
+      } else {
+        const subtotalUSD = product.unitCost * product.count;
+        subtotal.textContent = `USD ${subtotalUSD.toFixed(2)}`;
+      }
+      
 
       row.appendChild(cellImage);
       row.appendChild(name);
@@ -92,25 +99,32 @@ function showCartItems(cartData) {
       tbody.appendChild(row);
 
       
-      //Controlador de eventos input para que se modifique el subtotal según el valor ingresado en la cantidad
+     // Controlador de eventos input para que se modifique el subtotal según el valor ingresado en la cantidad
 inputQuantity.addEventListener("input", () => {
   const newQuantity = parseInt(inputQuantity.value, 10);
   if (!isNaN(newQuantity)) {
-    const newSubtotal = newQuantity * product.unitCost;
+    let newSubtotalUSD = 0;
 
-    // Obtener el valor actual del subtotal desde el elemento HTML
+    if (product.currency === "UYU") {
+      newSubtotalUSD = (product.unitCost / 40) * newQuantity;
+    } else {
+      newSubtotalUSD = product.unitCost * newQuantity;
+    }
+
+    // Obtenemos el valor actual del subtotal desde el elemento HTML
     const currentSubtotal = parseFloat(subtotal.textContent.replace('USD ', ''));
 
-    // Restar el valor anterior y sumar el nuevo subtotal
-    subtotalUSD = subtotalUSD - currentSubtotal + newSubtotal;
+    // Restamos el valor anterior y sumamos el nuevo subtotal
+    subtotalUSD = subtotalUSD - currentSubtotal + newSubtotalUSD;
 
-    // Actualizar los elementos HTML con los nuevos valores
-    subtotal.textContent = `${newSubtotal.toFixed(2)}`;
+    // Actualizamos con los nuevos valores en dólares
+    subtotal.textContent = `USD ${newSubtotalUSD.toFixed(2)}`;
     subtotalElement.textContent = `USD ${subtotalUSD.toFixed(2)}`;
 
     updateTotalYEnvio();
   }
 });
+
 
     });
 
@@ -193,7 +207,7 @@ fetch(CART_INFO_URL + "25801" + EXT_TYPE)
     console.error("Error al obtener el carrito de compras:", error);
   });
 
-//Función para calcular los subtotales en dólares.
+//Función para calcular y sumar los subtotales de todos los productos del carrito en dólares.
 function calcSubtotalUSD(cartData) {
   let subtotalUSD = 0;
 
