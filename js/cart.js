@@ -50,6 +50,7 @@ function showCartItems(cartData) {
     // Usamos un forEach para recorrer el array y mostrar los productos en nuestra tabla.
     articles.forEach(product => {
       const row = document.createElement("tr");
+      row.setAttribute("id", product.id);
 
       const cellImage = document.createElement("td");
       const image = document.createElement("img");
@@ -90,20 +91,27 @@ function showCartItems(cartData) {
 
       tbody.appendChild(row);
 
+      
       //Controlador de eventos input para que se modifique el subtotal según el valor ingresado en la cantidad
-      inputQuantity.addEventListener("input", () => {
-        const newQuantity = parseInt(inputQuantity.value, 10);
-        if (!isNaN(newQuantity)) {
-          const newSubtotal = newQuantity * product.unitCost;
-          
-          // Error, calcula en base al último input realizado, no tiene en cuenta lo que había antes.
-          subtotal.textContent = newSubtotal;
+inputQuantity.addEventListener("input", () => {
+  const newQuantity = parseInt(inputQuantity.value, 10);
+  if (!isNaN(newQuantity)) {
+    const newSubtotal = newQuantity * product.unitCost;
 
-          subtotalUSD = newSubtotal
-          subtotalElement.textContent = `USD ${subtotalUSD.toFixed(2)}`
-          updateTotalYEnvio();
-        }
-      });
+    // Obtener el valor actual del subtotal desde el elemento HTML
+    const currentSubtotal = parseFloat(subtotal.textContent.replace('USD ', ''));
+
+    // Restar el valor anterior y sumar el nuevo subtotal
+    subtotalUSD = subtotalUSD - currentSubtotal + newSubtotal;
+
+    // Actualizar los elementos HTML con los nuevos valores
+    subtotal.textContent = `${newSubtotal.toFixed(2)}`;
+    subtotalElement.textContent = `USD ${subtotalUSD.toFixed(2)}`;
+
+    updateTotalYEnvio();
+  }
+});
+
     });
 
     table.appendChild(tbody);
