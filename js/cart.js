@@ -222,6 +222,51 @@ function calcSubtotalUSD(cartData) {
   return subtotalUSD;
 }
 
+//Comportamiento del modal
+
+const credit = document.getElementById("creditCheck");
+const cardCredit = document.getElementById("creditNumber");
+const securityCode = document.getElementById("securityCode");
+const expiration = document.getElementById("expiration");
+const transfer = document.getElementById("transfer");
+const account = document.getElementById("accountNumber");
+
+//Lógica del modal a través de controladores de eventos
+credit.addEventListener("click", () => {
+  if (credit.checked) {
+    transfer.checked = false;
+    account.removeAttribute("disabled");
+    cardCredit.setAttribute("disabled", "disabled");
+    securityCode.setAttribute("disabled", "disabled");
+    expiration.setAttribute("disabled", "disabled");
+  } else {
+    account.setAttribute("disabled", "disabled");
+    cardCredit.removeAttribute("disabled");
+    securityCode.removeAttribute("disabled");
+    expiration.removeAttribute("disabled");
+  }
+});
+
+transfer.addEventListener("click", () => {
+  if (transfer.checked) {
+    credit.checked = false;
+    cardCredit.removeAttribute("disabled");
+    securityCode.removeAttribute("disabled");
+    expiration.removeAttribute("disabled");
+    account.setAttribute("disabled", "disabled");
+  } else {
+    cardCredit.setAttribute("disabled", "disabled");
+    securityCode.setAttribute("disabled", "disabled");
+    expiration.setAttribute("disabled", "disabled");
+    account.removeAttribute("disabled");
+  }
+});
+
+
+
+
+
+
 
 
 

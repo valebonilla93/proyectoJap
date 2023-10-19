@@ -93,6 +93,15 @@
         </form>
     </div>
 
+    <h2 class="m-4">Forma de pago</h2>
+    <div class="col-sm-12 m-4">
+      <button type="button" id= "pay" class="btn btn-link ps-0 is-invalid" data-bs-toggle="modal"
+        data-bs-target="#modalTerminos">Seleccionar</button>
+        <div id="invalidCheck3Feedback" class="invalid-feedback">
+          No ha seleccionado una forma de pago.
+        </div>
+    </div>
+
     <h2 class="m-4">Costos</h2>
     <div class="container" id="cost">
       <table class="table">
@@ -129,6 +138,66 @@
       <div></div>
       <div></div>
       <div></div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalTerminos" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Forma de pago</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="creditCheck">
+            <label class="form-check-label" for="exampleCheck1">Tarjeta de crédito</label>
+          </div>
+          <hr>
+          <div class="row g-2">
+            <div class="col-md">
+              <div class="form-floating">
+                <input class="form-control" id="creditNumber">
+                <label for="floatingInputGrid">Número de tarjeta</label>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                <input class="form-control" id="securityCode">
+                <label for="floatingInputGrid">Código de seguridad</label>
+              </div>
+            </div>
+          </div>
+          <div class="row g-2 mt-2">
+            <div class="col-6">
+              <div class="form-floating">
+                <input class="form-control" id="expiration">
+                <label for="floatingInputGrid">Vencimiento (MM/AA)</label>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3 form-check mt-4">
+            <input type="checkbox" class="form-check-input" id="transfer">
+            <label class="form-check-label" for="exampleCheck1">Transferencia bancaria</label>
+          </div>
+          <hr>
+          <div class="row g-2">
+            <div class="col-6">
+              <div class="form-floating">
+                <input class="form-control" id="accountNumber">
+                <label for="floatingInputGrid" >Número de cuenta</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="form-check">
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary mb-3">Guardar datos</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <script src="js/bootstrap.bundle.min.js"></script>
