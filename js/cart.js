@@ -235,30 +235,34 @@ const account = document.getElementById("accountNumber");
 credit.addEventListener("click", () => {
   if (credit.checked) {
     transfer.checked = false;
-    account.removeAttribute("disabled");
-    cardCredit.setAttribute("disabled", "disabled");
-    securityCode.setAttribute("disabled", "disabled");
-    expiration.setAttribute("disabled", "disabled");
-  } else {
     account.setAttribute("disabled", "disabled");
     cardCredit.removeAttribute("disabled");
     securityCode.removeAttribute("disabled");
     expiration.removeAttribute("disabled");
+    
+  } else {
+    account.removeAttribute("disabled");
+    cardCredit.setAttribute("disabled", "disabled");
+    securityCode.setAttribute("disabled", "disabled");
+    expiration.setAttribute("disabled", "disabled");
+    
   }
 });
 
 transfer.addEventListener("click", () => {
   if (transfer.checked) {
     credit.checked = false;
-    cardCredit.removeAttribute("disabled");
-    securityCode.removeAttribute("disabled");
-    expiration.removeAttribute("disabled");
-    account.setAttribute("disabled", "disabled");
-  } else {
     cardCredit.setAttribute("disabled", "disabled");
     securityCode.setAttribute("disabled", "disabled");
     expiration.setAttribute("disabled", "disabled");
     account.removeAttribute("disabled");
+   
+  } else {
+    cardCredit.removeAttribute("disabled");
+    securityCode.removeAttribute("disabled");
+    expiration.removeAttribute("disabled");
+    account.setAttribute("disabled", "disabled");
+    
   }
 });
 
