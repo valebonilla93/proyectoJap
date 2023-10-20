@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   modeDark();
 });
 
+
 //Declaramos la variable que va a almacenar el subtotal de productos en el carrito en dólares.
 let subtotalUSD = 0;
 
@@ -73,9 +74,12 @@ function showCartItems(cartData) {
       // Mostramos la cantidad de artículos en un input
       const cellQuantity = document.createElement("td");
       const inputQuantity = document.createElement("input");
-      inputQuantity.type = "text";
+      inputQuantity.type = "number";
       inputQuantity.value = product.count;
       inputQuantity.className = "hidden-input";
+      inputQuantity.required = true;
+      inputQuantity.min = 1;
+      inputQuantity.placeholder = "Mayor a 0"
       cellQuantity.appendChild(inputQuantity);
 
       // Calculamos el subtotal de acuerdo a la cantidad de productos, el valor unitario y lo expresamos en dolares.
@@ -101,9 +105,20 @@ function showCartItems(cartData) {
       
      // Controlador de eventos input para que se modifique el subtotal según el valor ingresado en la cantidad
 inputQuantity.addEventListener("input", () => {
+  
   const newQuantity = parseInt(inputQuantity.value, 10);
+
+  // Condicional para que si el usuario ingresa 0, cambie a 1.
+  let value = parseInt(inputQuantity.value, 10);
+  if(value === 0){
+    value = 1
+    inputQuantity.value = value;
+    newQuantity = value;
+  }
+  
   if (!isNaN(newQuantity)) {
     let newSubtotalUSD = 0;
+    
 
     if (product.currency === "UYU") {
       newSubtotalUSD = (product.unitCost / 40) * newQuantity;
@@ -222,7 +237,7 @@ function calcSubtotalUSD(cartData) {
   return subtotalUSD;
 }
 
-//Comportamiento del modal
+// Seleccionamos elementos del modal
 
 const credit = document.getElementById("creditCheck");
 const cardCredit = document.getElementById("creditNumber");
@@ -230,16 +245,26 @@ const securityCode = document.getElementById("securityCode");
 const expiration = document.getElementById("expiration");
 const transfer = document.getElementById("transfer");
 const account = document.getElementById("accountNumber");
+const btnSubmit = document.getElementById("btnFinish");
+const street = document.getElementById("calle");
+const numberDir = document.getElementById("numero");
+const corner = document.getElementById("esquina");
+const pay = document.getElementById("pay");
+const msgAlert = document.getElementById("alert");
+const danger = document.getElementById("danger");
 
-//Lógica del modal a través de controladores de eventos
+// Controlador de evento para la casilla de verificación de tarjeta de crédito.
 credit.addEventListener("click", () => {
+  // Si se selecciona tarjeta de crédito, se desactiva la opción de transferencia y se habilitan los campos de tarjeta de crédito
   if (credit.checked) {
     transfer.checked = false;
+    pay.classList.remove("is-invalid");
+    account.classList.remove("is-invalid");
     account.setAttribute("disabled", "disabled");
     cardCredit.removeAttribute("disabled");
     securityCode.removeAttribute("disabled");
     expiration.removeAttribute("disabled");
-    
+   // Si no se selecciona tarjeta de crédito, se habilita el campo de cuenta bancaria y se desactivan los campos de tarjeta de crédito 
   } else {
     account.removeAttribute("disabled");
     cardCredit.setAttribute("disabled", "disabled");
@@ -249,15 +274,22 @@ credit.addEventListener("click", () => {
   }
 });
 
+// Controlador de evento para la casilla de verificación de transferencia bancaria.
 transfer.addEventListener("click", () => {
   if (transfer.checked) {
+    // Si se selecciona transferencia bancaria, se desactiva la opción de tarjeta de crédito y se habilitan los campos de transferencia bancaria
     credit.checked = false;
+    pay.classList.remove("is-invalid");
+    cardCredit.classList.remove("is-invalid");
+    securityCode.classList.remove("is-invalid");
+    expiration.classList.remove("is-invalid");
     cardCredit.setAttribute("disabled", "disabled");
     securityCode.setAttribute("disabled", "disabled");
     expiration.setAttribute("disabled", "disabled");
     account.removeAttribute("disabled");
    
   } else {
+    // Si no se selecciona transferencia bancaria, se habilitan los campos de tarjeta de crédito y se desactiva el campo de cuenta bancaria
     cardCredit.removeAttribute("disabled");
     securityCode.removeAttribute("disabled");
     expiration.removeAttribute("disabled");
@@ -265,6 +297,77 @@ transfer.addEventListener("click", () => {
     
   }
 });
+
+// Controlador de evento para el botón de envío del formulario
+btnSubmit.addEventListener("click", ()=>{
+if(street.value == ""){
+  street.classList.add("is-invalid");
+}else {
+  street.classList.remove("is-invalid");
+  street.classList.add("is-valid");
+};
+
+if(numberDir.value == ""){
+  numberDir.classList.add("is-invalid");
+}else {
+  numberDir.classList.remove("is-invalid");
+  numberDir.classList.add("is-valid");
+};
+
+if(corner.value == ""){
+  corner.classList.add("is-invalid");
+}else {
+  corner.classList.remove("is-invalid");
+  corner.classList.add("is-valid");
+};
+
+if(credit.checked || transfer.checked){
+  pay.classList.remove("is-invalid");
+  pay.classList.add("is-valid");
+} else{
+  pay.classList.add("is-invalid");
+};
+
+if(credit.checked && cardCredit.value == ""){
+  cardCredit.classList.add("is-invalid");
+} else {
+  cardCredit.classList.remove("is-invalid");
+};
+
+if(credit.checked && securityCode.value == ""){
+  securityCode.classList.add("is-invalid");
+} else {
+  securityCode.classList.remove("is-invalid");
+};
+
+if(credit.checked && expiration.value == ""){
+  expiration.classList.add("is-invalid");
+} else {
+  expiration.classList.remove("is-invalid");
+};
+
+if(transfer.checked && account.value == ""){
+  account.classList.add("is-invalid");
+} else {
+  account.classList.remove("is-invalid");
+};
+
+// Genera mensajes de alerta según la validación de los campos
+if((street.value !== "")&&(numberDir.value !== "")&&(corner.value !== "")&&((credit.checked && cardCredit.value !== "" && securityCode.value !== "" && expiration.value !== "") || (transfer.checked && account.value !== ""))){
+  // Muestra un mensaje de alerta verde si todo está válido
+  msgAlert.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+   ¡Has comprado con éxito!
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>`
+} else {
+  // Muestra un mensaje de alerta rojo si hay errores en los campos
+  danger.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  No se pudo finalizar la compra.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>`
+}
+});
+
 
 
 

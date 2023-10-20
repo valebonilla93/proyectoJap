@@ -75,16 +75,25 @@
             <div class="mb-3">
                 <label for="calle" class="form-label">Calle:</label>
                 <input type="text" name="calle" id="calle" class="form-control" required>
+                <div class="invalid-feedback">
+                  Ingrese una calle.
+                </div>
             </div>
     
             <div class="mb-3">
                 <label for="numero" class="form-label">Número:</label>
                 <input type="text" name="numero" id="numero" class="form-control" required>
+                <div class="invalid-feedback">
+                  Ingrese un número.
+                </div>
             </div>
     
             <div class="mb-3">
                 <label for="esquina" class="form-label">Esquina:</label>
                 <input type="text" name="esquina" id="esquina" class="form-control" required>
+                <div class="invalid-feedback">
+                  Ingrese una esquina.
+                </div>
             </div>
     
             <br>
@@ -93,14 +102,8 @@
         </form>
     </div>
 
-    <h2 class="m-4">Forma de pago</h2>
-    <div class="col-sm-12 m-4">
-      <button type="button" id= "pay" class="btn btn-link ps-0 is-invalid" data-bs-toggle="modal"
-        data-bs-target="#modalTerminos">Seleccionar</button>
-        <div id="invalidCheck3Feedback" class="invalid-feedback">
-          No ha seleccionado una forma de pago.
-        </div>
-    </div>
+    <div id="alert"></div>
+    <div id="danger"></div>
 
     <h2 class="m-4">Costos</h2>
     <div class="container" id="cost">
@@ -120,6 +123,19 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <h2 class="m-4">Forma de pago</h2>
+    <div class="col-sm-12 m-4">
+      <button type="button" id= "pay" class="btn btn-link ps-0" data-bs-toggle="modal"
+        data-bs-target="#modalTerminos">Seleccionar</button>
+        <div id="invalidCheck3Feedback" class="invalid-feedback">
+          No ha seleccionado una forma de pago.
+        </div>
+    </div>
+
+    <div class="d-grid gap-2">
+      <button class="btn btn-primary" type="submit" id="btnFinish">Finalizar la compra</button>
     </div>
     
       
@@ -157,13 +173,13 @@
           <div class="row g-2">
             <div class="col-md">
               <div class="form-floating">
-                <input class="form-control" id="creditNumber">
+                <input class="form-control" id="creditNumber" required>
                 <label for="floatingInputGrid">Número de tarjeta</label>
               </div>
             </div>
             <div class="col-md">
               <div class="form-floating">
-                <input class="form-control" id="securityCode">
+                <input class="form-control" id="securityCode" required>
                 <label for="floatingInputGrid">Código de seguridad</label>
               </div>
             </div>
@@ -171,7 +187,7 @@
           <div class="row g-2 mt-2">
             <div class="col-6">
               <div class="form-floating">
-                <input class="form-control" id="expiration">
+                <input class="form-control" id="expiration" required>
                 <label for="floatingInputGrid">Vencimiento (MM/AA)</label>
               </div>
             </div>
@@ -184,7 +200,7 @@
           <div class="row g-2">
             <div class="col-6">
               <div class="form-floating">
-                <input class="form-control" id="accountNumber">
+                <input class="form-control" id="accountNumber" required>
                 <label for="floatingInputGrid" >Número de cuenta</label>
               </div>
             </div>
