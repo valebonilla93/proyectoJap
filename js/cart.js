@@ -40,7 +40,7 @@ function showCartItems(cartData) {
     headerSubtotal.textContent = "Subtotal";
     const headerRemove = document.createElement("th");
     headerRemove.textContent = "Eliminar"
-    
+
 
     headerRow.appendChild(headerImage);
     headerRow.appendChild(headerName);
@@ -97,9 +97,9 @@ function showCartItems(cartData) {
       }
       const remove = document.createElement("td");
       remove.classList.add("btn")
-      remove.innerHTML= `❌`
+      remove.innerHTML = `❌`
 
-      
+
 
       row.appendChild(cellImage);
       row.appendChild(name);
@@ -110,59 +110,67 @@ function showCartItems(cartData) {
       row.appendChild(remove);
 
       tbody.appendChild(row);
-
-      remove.addEventListener("click", ()=> {
+      // Agregamos un evento "click" al elemento "remove"
+      remove.addEventListener("click", () => {
+        // Obtenemos el ID del producto que se va a eliminar
         const productId = product.id;
+        // Obtenemos el elemento de la fila que representa el producto a eliminar
         cartData.articles = cartData.articles.filter(item => item.id !== productId)
-        const rowDelete = document.getElementById(productId); 
-        if(rowDelete) { 
+
+        const rowDelete = document.getElementById(productId);
+        // Si se encontró el elemento de la fila, eliminarlo del DOM
+        if (rowDelete) {
           rowDelete.remove()
 
         }
+        // Calculamos el subtotal en USD después de eliminar el producto
         subtotalUSD = calcSubtotalUSD(cartData);
-    subtotalElement.textContent = `USD ${subtotalUSD.toFixed(2)}`;
-    updateTotalYEnvio();
-    localStorage.setItem("cart", JSON.stringify(cartData.articles));
+        // Actualizamos el contenido del elemento "subtotalElement" con el nuevo subtotal
+        subtotalElement.textContent = `USD ${subtotalUSD.toFixed(2)}`;
+        // Actualizamos el total y los costos de envío
+        updateTotalYEnvio();
+        // Actualizamos los datos del carrito en el almacenamiento local
+        localStorage.setItem("cart", JSON.stringify(cartData.articles));
       })
 
 
-      
-     // Controlador de eventos input para que se modifique el subtotal según el valor ingresado en la cantidad
-inputQuantity.addEventListener("input", () => {
-  
-  const newQuantity = parseInt(inputQuantity.value, 10);
 
-  // Condicional para que si el usuario ingresa 0, cambie a 1.
-  let value = parseInt(inputQuantity.value, 10);
-  if(value === 0){
-    value = 1
-    inputQuantity.value = value;
-    newQuantity = value;
-  }
-  
-  if (!isNaN(newQuantity)) {
-    let newSubtotalUSD = 0;
-    
+      // Controlador de eventos input para que se modifique el subtotal según el valor ingresado en la cantidad
+      inputQuantity.addEventListener("input", () => {
 
-    if (product.currency === "UYU") {
-      newSubtotalUSD = (product.unitCost / 40) * newQuantity;
-    } else {
-      newSubtotalUSD = product.unitCost * newQuantity;
-    }
+        const newQuantity = parseInt(inputQuantity.value, 10);
 
-    // Obtenemos el valor actual del subtotal desde el elemento HTML
-    const currentSubtotal = parseFloat(subtotal.textContent.replace('USD ', ''));
+        // Condicional para que si el usuario ingresa 0, cambie a 1.
+        let value = parseInt(inputQuantity.value, 10);
+        if (value === 0) {
+          value = 1
+          inputQuantity.value = value;
+          newQuantity = value;
+        }
 
-    // Restamos el valor anterior y sumamos el nuevo subtotal
-    subtotalUSD = subtotalUSD - currentSubtotal + newSubtotalUSD;
+        if (!isNaN(newQuantity)) {
+          let newSubtotalUSD = 0;
 
-    // Actualizamos con los nuevos valores en dólares
-    subtotal.textContent = `USD ${newSubtotalUSD.toFixed(2)}`;
-    subtotalElement.textContent = `USD ${subtotalUSD.toFixed(2)}`;
 
-    updateTotalYEnvio();
-  }
-});
+          if (product.currency === "UYU") {
+            newSubtotalUSD = (product.unitCost / 40) * newQuantity;
+          } else {
+            newSubtotalUSD = product.unitCost * newQuantity;
+          }
+
+          // Obtenemos el valor actual del subtotal desde el elemento HTML
+          const currentSubtotal = parseFloat(subtotal.textContent.replace('USD ', ''));
+
+          // Restamos el valor anterior y sumamos el nuevo subtotal
+          subtotalUSD = subtotalUSD - currentSubtotal + newSubtotalUSD;
+
+          // Actualizamos con los nuevos valores en dólares
+          subtotal.textContent = `USD ${newSubtotalUSD.toFixed(2)}`;
+          subtotalElement.textContent = `USD ${subtotalUSD.toFixed(2)}`;
+
+          updateTotalYEnvio();
+        }
+      });
 
 
     });
@@ -288,13 +296,13 @@ credit.addEventListener("click", () => {
     cardCredit.removeAttribute("disabled");
     securityCode.removeAttribute("disabled");
     expiration.removeAttribute("disabled");
-   // Si no se selecciona tarjeta de crédito, se habilita el campo de cuenta bancaria y se desactivan los campos de tarjeta de crédito 
+    // Si no se selecciona tarjeta de crédito, se habilita el campo de cuenta bancaria y se desactivan los campos de tarjeta de crédito 
   } else {
     account.removeAttribute("disabled");
     cardCredit.setAttribute("disabled", "disabled");
     securityCode.setAttribute("disabled", "disabled");
     expiration.setAttribute("disabled", "disabled");
-    
+
   }
 });
 
@@ -311,85 +319,85 @@ transfer.addEventListener("click", () => {
     securityCode.setAttribute("disabled", "disabled");
     expiration.setAttribute("disabled", "disabled");
     account.removeAttribute("disabled");
-   
+
   } else {
     // Si no se selecciona transferencia bancaria, se habilitan los campos de tarjeta de crédito y se desactiva el campo de cuenta bancaria
     cardCredit.removeAttribute("disabled");
     securityCode.removeAttribute("disabled");
     expiration.removeAttribute("disabled");
     account.setAttribute("disabled", "disabled");
-    
+
   }
 });
 
 // Controlador de evento para el botón de envío del formulario
-btnSubmit.addEventListener("click", ()=>{
-if(street.value == ""){
-  street.classList.add("is-invalid");
-}else {
-  street.classList.remove("is-invalid");
-  street.classList.add("is-valid");
-};
+btnSubmit.addEventListener("click", () => {
+  if (street.value == "") {
+    street.classList.add("is-invalid");
+  } else {
+    street.classList.remove("is-invalid");
+    street.classList.add("is-valid");
+  };
 
-if(numberDir.value == ""){
-  numberDir.classList.add("is-invalid");
-}else {
-  numberDir.classList.remove("is-invalid");
-  numberDir.classList.add("is-valid");
-};
+  if (numberDir.value == "") {
+    numberDir.classList.add("is-invalid");
+  } else {
+    numberDir.classList.remove("is-invalid");
+    numberDir.classList.add("is-valid");
+  };
 
-if(corner.value == ""){
-  corner.classList.add("is-invalid");
-}else {
-  corner.classList.remove("is-invalid");
-  corner.classList.add("is-valid");
-};
+  if (corner.value == "") {
+    corner.classList.add("is-invalid");
+  } else {
+    corner.classList.remove("is-invalid");
+    corner.classList.add("is-valid");
+  };
 
-if(credit.checked || transfer.checked){
-  pay.classList.remove("is-invalid");
-  pay.classList.add("is-valid");
-} else{
-  pay.classList.add("is-invalid");
-};
+  if (credit.checked || transfer.checked) {
+    pay.classList.remove("is-invalid");
+    pay.classList.add("is-valid");
+  } else {
+    pay.classList.add("is-invalid");
+  };
 
-if(credit.checked && cardCredit.value == ""){
-  cardCredit.classList.add("is-invalid");
-} else {
-  cardCredit.classList.remove("is-invalid");
-};
+  if (credit.checked && cardCredit.value == "") {
+    cardCredit.classList.add("is-invalid");
+  } else {
+    cardCredit.classList.remove("is-invalid");
+  };
 
-if(credit.checked && securityCode.value == ""){
-  securityCode.classList.add("is-invalid");
-} else {
-  securityCode.classList.remove("is-invalid");
-};
+  if (credit.checked && securityCode.value == "") {
+    securityCode.classList.add("is-invalid");
+  } else {
+    securityCode.classList.remove("is-invalid");
+  };
 
-if(credit.checked && expiration.value == ""){
-  expiration.classList.add("is-invalid");
-} else {
-  expiration.classList.remove("is-invalid");
-};
+  if (credit.checked && expiration.value == "") {
+    expiration.classList.add("is-invalid");
+  } else {
+    expiration.classList.remove("is-invalid");
+  };
 
-if(transfer.checked && account.value == ""){
-  account.classList.add("is-invalid");
-} else {
-  account.classList.remove("is-invalid");
-};
+  if (transfer.checked && account.value == "") {
+    account.classList.add("is-invalid");
+  } else {
+    account.classList.remove("is-invalid");
+  };
 
-// Genera mensajes de alerta según la validación de los campos
-if((street.value !== "")&&(numberDir.value !== "")&&(corner.value !== "")&&((credit.checked && cardCredit.value !== "" && securityCode.value !== "" && expiration.value !== "") || (transfer.checked && account.value !== ""))){
-  // Muestra un mensaje de alerta verde si todo está válido
-  msgAlert.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+  // Genera mensajes de alerta según la validación de los campos
+  if ((street.value !== "") && (numberDir.value !== "") && (corner.value !== "") && ((credit.checked && cardCredit.value !== "" && securityCode.value !== "" && expiration.value !== "") || (transfer.checked && account.value !== ""))) {
+    // Muestra un mensaje de alerta verde si todo está válido
+    msgAlert.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
    ¡Has comprado con éxito!
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>`
-} else {
-  // Muestra un mensaje de alerta rojo si hay errores en los campos
-  danger.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  } else {
+    // Muestra un mensaje de alerta rojo si hay errores en los campos
+    danger.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
   No se pudo finalizar la compra.
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>`
-}
+  }
 });
 
 
