@@ -38,6 +38,9 @@ function showCartItems(cartData) {
     headerQuantity.textContent = "Cantidad";
     const headerSubtotal = document.createElement("th");
     headerSubtotal.textContent = "Subtotal";
+    const headerRemove = document.createElement("th");
+    headerRemove.textContent = "Eliminar"
+    
 
     headerRow.appendChild(headerImage);
     headerRow.appendChild(headerName);
@@ -45,6 +48,7 @@ function showCartItems(cartData) {
     headerRow.appendChild(headerCost);
     headerRow.appendChild(headerQuantity);
     headerRow.appendChild(headerSubtotal);
+    headerRow.appendChild(headerRemove);
 
     tbody.appendChild(headerRow);
 
@@ -91,6 +95,10 @@ function showCartItems(cartData) {
         const subtotalUSD = product.unitCost * product.count;
         subtotal.textContent = `USD ${subtotalUSD.toFixed(2)}`;
       }
+      const remove = document.createElement("td");
+      remove.classList.add("btn")
+      remove.innerHTML= `❌`
+
       
 
       row.appendChild(cellImage);
@@ -99,8 +107,24 @@ function showCartItems(cartData) {
       row.appendChild(cost);
       row.appendChild(cellQuantity);
       row.appendChild(subtotal);
+      row.appendChild(remove);
 
       tbody.appendChild(row);
+
+      remove.addEventListener("click", ()=> {
+        const productId = product.id;
+        cartData.articles = cartData.articles.filter(item => item.id !== productId)
+        const rowDelete = document.getElementById(productId); 
+        if(rowDelete) { 
+          rowDelete.remove()
+
+        }
+        subtotalUSD = calcSubtotalUSD(cartData);
+    subtotalElement.textContent = `USD ${subtotalUSD.toFixed(2)}`;
+    updateTotalYEnvio();
+    localStorage.setItem("cart", JSON.stringify(cartData.articles));
+      })
+
 
       
      // Controlador de eventos input para que se modifique el subtotal según el valor ingresado en la cantidad
