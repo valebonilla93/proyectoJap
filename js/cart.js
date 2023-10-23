@@ -169,6 +169,11 @@ function showCartItems(cartData) {
           subtotalElement.textContent = `USD ${subtotalUSD.toFixed(2)}`;
 
           updateTotalYEnvio();
+
+          product.count = newQuantity
+
+          // Actualizamos los datos del carrito en el almacenamiento local
+        localStorage.setItem("cart", JSON.stringify(cartData.articles));
         }
       });
 
