@@ -249,10 +249,10 @@ fetch(CART_INFO_URL + "25801" + EXT_TYPE)
   .then(response => response.json())
   .then(cartData => {
 
-    // Verificamos si hay productos en el almacenamiento local y en el caso de haberlos los combinamos con los traidos del json.
-    if (cart && cart.length > 0) {
-      cartData.articles = [...cart, ...cartData.articles];
-    }
+  
+    
+      cartData.articles = cart 
+    
     showCartItems(cartData);
   })
   .catch(error => {
