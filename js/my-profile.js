@@ -12,6 +12,16 @@ window.onload = function () {
     secondName.value = localStorage.getItem('secondName');
     secondLastName.value = localStorage.getItem('secondLastName');
     tel.value = localStorage.getItem('tel');
+
+    // Recuperamos la imagen guardada en el localStorage
+    const profileImage = document.getElementById('imgPerfil');
+    const storedImage = localStorage.getItem('imagenDePerfil');
+
+    // Condicional que en el caso de encontrar una imagen en el almacenamiento local coloca esta en lugar de la predifinida.
+    if (storedImage) {
+      profileImage.src = storedImage;
+    } 
+    
   }
   console.log(email, password);
 }
@@ -44,4 +54,30 @@ save.addEventListener("click", () => {
     localStorage.setItem('tel', tel.value);
   }
 })
+
+
+const inputImg = document.getElementById('inputGroupFile04');
+
+// Creamos un controlador de eventos que utiliza el objeto FileReader para guardar la imagen como un string y poder almacenarla en el LocalStorage.
+inputImg.addEventListener('change', function (event) {
+
+  if (event.target.files.length > 0) {
+    const selectedFile = event.target.files[0];
+
+    
+    const reader = new FileReader();
+
+    
+    reader.onload = function (e) {
+      
+      localStorage.setItem('imagenDePerfil', e.target.result);
+      console.log('Imagen guardada en el almacenamiento local.');
+    };
+
+    
+    reader.readAsDataURL(selectedFile);
+  }
+});
+
+
 

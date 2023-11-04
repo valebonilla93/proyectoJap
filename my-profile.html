@@ -62,8 +62,17 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-   <h2 class="mt-4">Perfil</h2>
+ <div class="container">
+  <div class="row">
+      <div class="col-md-6">
+   <h2 class="mt-4 ">Perfil</h2>
+  </div>
+   <div class="col-md-6 text-end mt-4">
+   <img src="img/perfil.jpg" class="img-thumbnail w-25 " alt="Imagen de perfil" id="imgPerfil" >
+  </div>
+  </div>
+  </div>
+  <div class="container">
    <hr>
    <form class="row g-3">
     <div class="col-md-6">
@@ -90,12 +99,17 @@
       <label for="inputTel" class="form-label">Teléfono de contacto</label>
       <input type="number" class="form-control" id="inputTel">
     </div>
+    <div class="col-md-6">
+      <label for="inputGroupFile04" class="form-label">Imagen de perfil</label>
+      <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+    </div>
+    <hr>
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit" id="save">Guardar cambios</button>
+    </div>
+  </form>
   </div>
-  <hr>
-  <div class="col-12">
-    <button class="btn btn-primary" type="submit" id="save">Guardar cambios</button>
-  </div>
-</form>
+ 
   </main>
   <footer class="text-muted">
     <div class="container">
